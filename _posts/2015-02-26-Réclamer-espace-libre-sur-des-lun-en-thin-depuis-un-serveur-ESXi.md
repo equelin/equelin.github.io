@@ -42,8 +42,8 @@ La commande vmkfstools n'est plus supportée depuis la version 5.5, elle a été
 
 ####VMware ESXi 5.0 U1 et 5.1:
 
-http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=2014849
-http://www.boche.net/blog/index.php/2012/06/28/storage-starting-thin-and-staying-thin-with-vaai-unmap/
+[KB VMware](http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=2014849)
+[Jason Boche - Starting thin and staying thin with VAAI Unmap](http://www.boche.net/blog/index.php/2012/06/28/storage-starting-thin-and-staying-thin-with-vaai-unmap/)
 
 ####VMware ESXi 5.5:
-http://www.boche.net/blog/index.php/2013/09/13/vsphere-5-5-unmap-deep-dive/
+[Jason Boche - vSphere 5.5 UNMAP Deep dive](http://www.boche.net/blog/index.php/2013/09/13/vsphere-5-5-unmap-deep-dive/)
