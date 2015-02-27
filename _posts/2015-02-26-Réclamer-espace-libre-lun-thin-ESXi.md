@@ -7,7 +7,7 @@ VMware a introduit avec la version 5.0 une nouvelle primitive VAAI (UNMAP) qui p
 
 En version 5.0, l'invocation de cette primitive était gérée automatiquement par les ESXi mais des problèmes de performance ont poussé VMware à la désactiver. Elle a été de nouveau disponible dans la version 5.0 U1 cependant l'exécution est maintenant manuelle. L'efficacité de la primitive a été améliorée dans la version 5.5.
 
-Le fonctionnement de la primitive est plutôt simple, elle va écrire des 0 sur les blocks qui ne sont plus utilisé par le datastore. Ensuite ce sera à la charge de la baie de stockage de réaffecter ces blocs à l'espace libre.
+Le fonctionnement de la primitive est plutôt simple, elle va écrire des 0 sur les blocs qui ne sont plus utilisé par le datastore. Ensuite ce sera à la charge de la baie de stockage de réaffecter ces blocs à l'espace libre.
 
 ###Ma baie est-elle compatible avec la primitive ?
 
