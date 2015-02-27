@@ -26,8 +26,7 @@ Et bien ça dépend... Sur des datastores avec des VM de production il est rare 
 
 Avec un ESXi en version 5.0 U1 ou 5.1 il faut utiliser la commande vmkfstools:
 
-Se connecter en SSH sur l'ESXi
-Se positionner sur le datastore concerné
+Se connecter en SSH sur l'ESXi et se positionner sur le datastore concerné
 
 ```
 cd /vmfs/volumes/nomdudatastore
@@ -48,8 +47,7 @@ vmkfstools -y 60
 
 La commande vmkfstools n'est plus supportée depuis la version 5.5, elle a été remplacée par une commande esxcli:
 
-Se connecter en SSH sur l'ESXi
-Exécuter la primitive
+Se connecter en SSH sur l'ESXi et exécuter la primitive
 
 ```
 esxcli storage vmfs unmap -l nomdudatastore -n nombredeblocks
