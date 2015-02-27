@@ -3,7 +3,11 @@ layout: post
 title: Récupérer de l'espace libre sur des LUN thin avec VMware ESXi
 ---
 
-VMware a introduit avec la version 5.0 une nouvelle primitive VAAI (UNMAP) qui permet, dans le cas de LUN en thin provisionning, de réaffecter les blocks qui ne sont plus utilisé à l'espace libre. Le but étant de conserver les bénéfices du thin provisionning dans le temps. En version 5.0, l'invocation de cette primitive était gérée automatiquement par les ESXi mais des problèmes de performance ont poussé VMware à la désactiver. Elle a été de nouveau disponible dans la version 5.0 U1 cependant l'exécution est maintenant manuelle. Le fonctionnement/efficacité de la primitive a été amélioré dans la version 5.5.
+VMware a introduit avec la version 5.0 une nouvelle primitive VAAI (UNMAP) qui permet, dans le cas de LUN en thin provisionning, de réaffecter les blocks qui ne sont plus utilisé à l'espace libre. Le but étant de conserver les bénéfices du thin provisionning dans le temps. 
+
+En version 5.0, l'invocation de cette primitive était gérée automatiquement par les ESXi mais des problèmes de performance ont poussé VMware à la désactiver. Elle a été de nouveau disponible dans la version 5.0 U1 cependant l'exécution est maintenant manuelle. Le fonctionnement/efficacité de la primitive a été amélioré dans la version 5.5.
+
+Le fonctionnement de la primitive est plutôt simple, elle va écrire des 0 sur les blocks qui ne sont plus utilisé par le datastore. Ensuite ce sera à la charge de la baie de stockage de réaffecter ces blocks à l'espace libre.
 
 ###Ma baie est-elle compatible avec la primitive ?
 
@@ -50,6 +54,7 @@ esxcli storage vmfs unmap -l nomdudatastore -n nombredeblocks
 ####Remarques:
 
 * La commande crée un fichier temporaire mais, à la différence des versions précédentes, la taille du fichier est définie par la valeur du paramètre -n (en Mo)
+* Une seule exécution de la commande est nécessaire pour libérer l'ensemble des blocks non utilisés
 * HP recommande de spécifier une valeur importante pour le paramètre -n afin de réduire la durée d'exécution de la primitive
 * VMware indique que la primitive peut être utilisée pendant les heures de production, il est quand même nécessaire de réaliser des tests au préalable.
 
