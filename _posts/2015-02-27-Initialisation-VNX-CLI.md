@@ -16,35 +16,35 @@ La marche à suivre est plutôt simple, il est d'abord nécessaire de mettre son
 
 Vérifier que la baie est bien joignable sur les 2 IP
 
-'''
+```
 naviseccli -h 1.1.1.1 -user sysadmin -password sysadmin -scope 0 networkadmin -get
 naviseccli -h 1.1.1.2 -user sysadmin -password sysadmin -scope 0 networkadmin -get
-'''
+```
 
 Vérifier que la baie ne remonte aucune erreur sur les 2 contrôleurs
 
-'''
+```
 naviseccli -h 1.1.1.1 -user sysadmin -password sysadmin -scope 0 faults -list
 naviseccli -h 1.1.1.2 -user sysadmin -password sysadmin -scope 0 faults -list
-'''
+```
 
 Vérifier qu'aucun domaine n'a déjà été configuré
 
-'''
+```
 naviseccli -h 1.1.1.1 -user sysadmin -password sysadmin -scope 0 domain -list
 naviseccli -h 1.1.1.2 -user sysadmin -password sysadmin -scope 0 domain -list
-'''
+```
 
 Configurer l'adresse IP cible du SPA
 
-'''
+```
 naviseccli -h 1.1.1.1 -user sysadmin -password sysadmin -scope 0 networkadmin -set -ipv4 -address 172.17.1.146 -subnetmask 255.255.254.0  -gateway 172.17.1.253
-'''
+```
 
 Configurer l'adresse IP cible du SPB
 
-'''
+```
 naviseccli -h 1.1.1.2 -user sysadmin -password sysadmin -scope 0 networkadmin -set -ipv4 -address 172.17.1.147 -subnetmask 255.255.254.0  -gateway 172.17.1.253
-'''
+```
 
 Une fois toutes ces opérations réalisées avec succès, vous devriez être en mesure de vous connecter à la baie avec Unisphere. Il ne vous restera plus qu'à finaliser la configuration en spécifant par exemple les serveurs DNS et NTP.
