@@ -18,6 +18,10 @@ esxcli storage core device list | more (noter le uid naa.)
 esxcli storage core device vaai status get -d <naa ID> (Vérifier la présence de ligne Zero Status: Supported)
 ```
 
+###Quand et pourquoi utiliser cette fonctionnalité ?
+
+Et bien ça dépend... Sur des datastores avec des VM de production il est rare que la volumétrie soit amenée à beaucoup varier. Réclamer l'espace libre sur ce type d'environnement sera certainement une perte de temps. Là ou on pourra y voir un plus grand intérêt c'est dans le cas des environnements de test/dev ou plus généralement quand le contenu des datastores évolue régulièrement.
+
 ###VMware ESXi 5.0 U1 et 5.1:
 
 Avec un ESXi en version 5.0 U1 ou 5.1 il faut utiliser la commande vmkfstools:
@@ -53,7 +57,7 @@ esxcli storage vmfs unmap -l nomdudatastore -n nombredeblocks
 
 ####Remarques:
 
-* La commande crée un fichier temporaire mais, à la différence des versions précédentes, la taille du fichier est définie par la valeur du paramètre -n (en Mo)
+* La commande crée un fichier temporaire (.asyncUnmapFile) mais, à la différence des versions précédentes, la taille du fichier est définie par la valeur du paramètre -n (en Mo)
 * Une seule exécution de la commande est nécessaire pour libérer l'ensemble des blocks non utilisés
 * HP recommande de spécifier une valeur importante pour le paramètre -n afin de réduire la durée d'exécution de la primitive
 * VMware indique que la primitive peut être utilisée pendant les heures de production, il est quand même nécessaire de réaliser des tests au préalable.
