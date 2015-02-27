@@ -5,17 +5,20 @@ title: Récupérer de l'espace libre sur des LUN thin avec VMware ESXi
 
 VMware a introduit avec la version 5.0 une nouvelle primitive VAAI (UNMAP) qui permet, dans le cas de LUN en thin provisionning, de réaffecter les blocks qui ne sont plus utilisé à l'espace libre. Le but étant de conserver les bénéfices du thin provisionning dans le temps. En version 5.0, l'invocation de cette primitive était gérée automatiquement par les ESXi mais des problèmes de performance ont poussé VMware à la désactiver. Elle a été de nouveau disponible dans la version 5.0 U1 cependant l'exécution est maintenant manuelle. Le fonctionnement/efficacité de la primitive a été amélioré dans la version 5.5.
 
-###VMware ESXi 5.0 U1 et 5.1:
+###Ma baie est-elle compatible avec la primitive ?
 
-Ci-dessous la procédure pour exécuter la primitive UNMAP:
-
-Vérifier que le datastore supporte bien la primitive UNMAP
+Outre le fait que la baie doit être compatible VAAI (ce qui est le cas de toutes les baies SAN récentes) il faut en plus qu'elle supporte la primitive UNMAP. Il est possible de le vérifier pour chaque datastore avec les commandes esxcli suivantes:
 
 ```
 esxcli storage core device list | more (noter le uid naa.)
 esxcli storage core device vaai status get -d <naa ID> (Vérifier la présence de ligne Zero Status: Supported)
 ```
 
+###VMware ESXi 5.0 U1 et 5.1:
+
+Avec un ESXi en version 5.0 U1 ou 5.1 il faut utiliser la commande vmkfstools:
+
+Se connecter en SSH sur l'ESXi
 Se positionner sur le datastore concerné
 
 ```
@@ -35,15 +38,9 @@ vmkfstools -y 60
 
 ###VMware ESXi 5.5
 
-La commande vmkfstools n'est plus supportée depuis la version 5.5, elle a été remplacée par une commande esxcli. ci-dessous la procédure:
+La commande vmkfstools n'est plus supportée depuis la version 5.5, elle a été remplacée par une commande esxcli:
 
-Vérifier que le datastore supporte bien la primitive UNMAP
-
-```
-esxcli storage core device list | more (noter le uid naa.)
-esxcli storage core device vaai status get -d <naa ID> (Vérifier la présence de ligne Zero Status: Supported)
-```
-
+Se connecter en SSH sur l'ESXi
 Exécuter la primitive
 
 ```
