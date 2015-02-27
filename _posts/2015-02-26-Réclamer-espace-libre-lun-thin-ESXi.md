@@ -10,18 +10,24 @@ VMware a introduit avec la version 5.0 une nouvelle primitive VAAI (UNMAP) qui p
 Ci-dessous la procédure pour exécuter la primitive UNMAP:
 
 Vérifier que le datastore supporte bien la primitive UNMAP
-```bash
+
+```
 esxcli storage core device list | more (noter le uid naa.)
 esxcli storage core device vaai status get -d <naa ID> (Vérifier la présence de ligne Zero Status: Supported)
 ```
+
 Se positionner sur le datastore concerné
-```bash
+
+```
 cd /vmfs/volumes/nomdudatastore
 ```
+
 Exécuter la primitive
-```bash
+
+```
 vmkfstools -y 60
 ```
+
 ####Remarques:
 
 * La commande vmkfstools crée un fichier temporaire (.vmfsBalloon+suffix) dans lequel tous les blocks récupérés seront stockés avant d'êtres remis à zéro, le paramètre -y 60 indique que 60% des blocks libres seront remis à zéro, cela implique que le datastore devra disposer de suffisamment d'espace disque libre pour effectuer cette opération. En cas de doute, relancer la commande plusieurs fois avec un % inférieur.
@@ -32,12 +38,15 @@ vmkfstools -y 60
 La commande vmkfstools n'est plus supportée depuis la version 5.5, elle a été remplacée par une commande esxcli. ci-dessous la procédure:
 
 Vérifier que le datastore supporte bien la primitive UNMAP
-```bash
+
+```
 esxcli storage core device list | more (noter le uid naa.)
 esxcli storage core device vaai status get -d <naa ID> (Vérifier la présence de ligne Zero Status: Supported)
 ```
+
 Exécuter la primitive
-```bash
+
+```
 esxcli storage vmfs unmap -l nomdudatastore -n nombredeblocks
 ```
 
