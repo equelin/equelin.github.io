@@ -7,10 +7,15 @@ Tous ceux qui ont déjà installé une baie EMC VNX savent que l'outil d'initial
 
 Pour contourner ce problème je préfère maintenant initialiser la baie en ligne de commande avec l'outil NaviSecCLI (téléchargeable sur [le site support d'EMC](https://support.emc.com)). Les 2 contrôleurs ont une IP par défaut qui peuvent être utilisées pour configurer la baie:
 
+---
 SPA: 1.1.1.1
+
 SPB: 1.1.1.2
+
 Utilisateur: sysadmin
+
 Mot de passe: sysadmin
+---
 
 La marche à suivre est plutôt simple, il est d'abord nécessaire de mettre son poste de travail dans le même sous réseau que la baie (prendre par exemple l'IP 1.1.1.3) puis de suivre la procédure suivante:
 
