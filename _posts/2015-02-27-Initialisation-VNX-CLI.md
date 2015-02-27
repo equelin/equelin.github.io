@@ -38,13 +38,13 @@ naviseccli -h 1.1.1.2 -user sysadmin -password sysadmin -scope 0 domain -list
 Configurer l'adresse IP cible du SPA
 
 ```
-naviseccli -h 1.1.1.1 -user sysadmin -password sysadmin -scope 0 networkadmin -set -ipv4 -address 172.17.1.146 -subnetmask 255.255.254.0  -gateway 172.17.1.253
+naviseccli -h 1.1.1.1 -user sysadmin -password sysadmin -scope 0 networkadmin -set -ipv4 -address 172.17.1.146 -subnetmask 255.255.255.0  -gateway 192.168.1.254
 ```
 
 Configurer l'adresse IP cible du SPB
 
 ```
-naviseccli -h 1.1.1.2 -user sysadmin -password sysadmin -scope 0 networkadmin -set -ipv4 -address 172.17.1.147 -subnetmask 255.255.254.0  -gateway 172.17.1.253
+naviseccli -h 1.1.1.2 -user sysadmin -password sysadmin -scope 0 networkadmin -set -ipv4 -address 172.17.1.147 -subnetmask 255.255.255.0  -gateway 192.168.1.254
 ```
 
 Une fois toutes ces opérations réalisées avec succès, vous devriez être en mesure de vous connecter à la baie avec Unisphere. Il ne vous restera plus qu'à finaliser la configuration en spécifant par exemple les serveurs DNS et NTP.
