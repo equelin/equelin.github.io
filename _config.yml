@@ -12,16 +12,16 @@ relative_permalinks: true
 title:               OK Computer
 tagline:             'Yet another tech blog...'
 description:         'Ici on parle SAN, virtualisation, OS.'
-url:                 http://equelin.github.io
+url:                 http://okcomputerpro.github.io
 baseurl:             /
 paginate:            5
 
 # About/contact
 author:
-  name:              Erwan Quélin
-  url:               https://twitter.com/equelinpro
-  email:             erwan.quelin@gmail.com
-  github:            equelin
+  name:              OK Computer
+  url:               https://twitter.com/okcomputerpro
+  email:             okcomputerpro@gmail.com
+  github:            okcomputerpro
 
 # Custom vars
 version:             1.0.0
