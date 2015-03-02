@@ -1,1 +1,1 @@
-# okcomputerpro.github.io
+# equelin.github.io
