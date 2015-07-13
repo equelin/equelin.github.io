@@ -3,6 +3,8 @@ layout: post
 title: Utiliser PowerCLI et la primitive UNMAP pour réclamer de l'espace libre sur des LUN thin
 ---
 
+> Attention cet article n'est plus d'actualité, merci de jeter un oeil à [celui-ci](http://blog.okcomputer.io/2015/07/13/VMware-KB-ESXi-UNMAP/)
+
 Nous avons vu dans un [article précédent](http://blog.okcomputer.io/2015/02/26/R%C3%A9clamer-espace-libre-lun-thin-ESXi-UNMAP/) comment réclamer l'espace libre en ligne de commande. Cette méthode, bien que fonctionnelle, nécessite de lancer manuellement la commande pour chaque datastore concerné.
 
 Afin d'automatiser le process, je vous propose d'utiliser PowerCLI:
