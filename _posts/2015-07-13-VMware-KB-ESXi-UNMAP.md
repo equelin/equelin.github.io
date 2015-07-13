@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Modification du fonctionnment d'UNMAP avec ESXi 5.5 et 6.0
+title: Modification du fonctionnement d'UNMAP avec ESXi 5.5 et 6.0
 ---
 
 La lecture de cet [article](http://www.codyhosterman.com/2015/07/unmap-block-count-behavior-change-in-esxi-5-5-p3/) écrit par [Cody Hosterman](https://twitter.com/codyhosterman) m'a amené à revoir le script PowerCLI que j'avais écrit dans un précedent [post](http://blog.okcomputer.io/2015/03/26/VMware-ESXi-UNMAP-PowerCLI/).
