@@ -13,4 +13,4 @@ Afin d'automatiser le process, je vous propose d'utiliser PowerCLI:
 
 L'idée est de réclamer l'espace libre sur tous les datastores disponibles depuis le serveur ESXi passé en argument *-VMHost*. La taille du fichier asyncUnmapFileSize est définie en fonction de l'espace libre restant sur le datastore et un pourcentage qui par défaut est de 50% mais qui peut aussi être passé en argument *-asyncUnmapFilePourcentage*. Il est possible de préciser sur quel datastore on veut exécuter le script grâce à l'argument *-Datastore*.
 
-Vous trouverez le script complet sur [GitHub](https://github.com/okcomputerpro/vmware-powercli/blob/master/UNMAP/ReclaimUnusedSpace.ps1).
+Vous trouverez le script complet sur [GitHub](https://github.com/equelin/vmware-powercli/blob/master/UNMAP/ReclaimUnusedSpace.ps1).
