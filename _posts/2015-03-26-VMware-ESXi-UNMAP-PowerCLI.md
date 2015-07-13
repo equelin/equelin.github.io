@@ -7,7 +7,7 @@ Nous avons vu dans un [article précédent](http://blog.okcomputer.io/2015/02/26
 
 Afin d'automatiser le process, je vous propose d'utiliser PowerCLI:
 
-{% gist 5262190e218b8ce69a58 %}
+{% gist 3996e376d94e07ec9bf7 %}
 
 L'idée est de réclamer l'espace libre sur tous les datastores disponibles depuis le serveur ESXi passé en argument *-VMHost*. La taille du fichier asyncUnmapFileSize est définie en fonction de l'espace libre restant sur le datastore et un pourcentage qui par défaut est de 50% mais qui peut aussi être passé en argument *-asyncUnmapFilePourcentage*. Il est possible de préciser sur quel datastore on veut exécuter le script grâce à l'argument *-Datastore*.
 
