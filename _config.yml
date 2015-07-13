@@ -1,0 +1,27 @@
+# Dependencies
+markdown:            redcarpet
+highlighter:         pygments
+
+# Permalinks
+#
+# Use of `relative_permalinks` ensures post links from the index work properly.
+permalink:           pretty
+relative_permalinks: true
+
+# Setup
+title:               OK Computer
+tagline:             ''
+description:         'Ici on parle essentiellement automatisation, virtualisation, stockage et OS mais pas que !'
+url:                 http://blog.okcomputer.io
+baseurl:             /
+paginate:            5
+
+# About/contact
+author:
+  name:              Erwan Quélin
+  url:               https://twitter.com/erwanquelin
+  email:             equelin@gmail.com
+  github:            equelin
+
+# Custom vars
+version:             1.0.0
