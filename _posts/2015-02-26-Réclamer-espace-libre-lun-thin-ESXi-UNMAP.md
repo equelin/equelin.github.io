@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Récupérer de l'espace libre sur des LUN thin avec VMware ESXi et UNMAP
+comments: True
 ---
 
 VMware a introduit avec la version 5.0 une nouvelle primitive VAAI (UNMAP) qui permet, dans le cas de LUN en thin provisionning, de réaffecter les blocs qui ne sont plus utilisé à l'espace libre. Le but étant de conserver les bénéfices du thin provisionning dans le temps.
@@ -70,3 +71,5 @@ esxcli storage vmfs unmap -l nomdudatastore -n nombredeblocks
 
 ####VMware ESXi 5.5:
 [Jason Boche - vSphere 5.5 UNMAP Deep dive](http://www.boche.net/blog/index.php/2013/09/13/vsphere-5-5-unmap-deep-dive/)
+
+{% include twitter.html %}

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Configurer une baie EMC VNX en ligne de commande
+comments: True
 ---
 
 Pour faire suite à [l'article](http://blog.okcomputer.io/2015/02/27/Initialisation-VNX-CLI/) expliquant comment initialiser une baie EMC VNX en CLI à l'aide de l'utilitaire EMC Naviseccli, voici quelques commandes supplémentaires permettant d'aller jusqu'à la présentation des LUN aux hôtes.
@@ -111,3 +112,5 @@ La particularité de cette commande est que le LUN est identifié par son ID ave
 ```
 naviseccli -h 192.168.1.100 storagegroup -addhlu -gname SG01 -hlu 0 -alu 0
 ```
+
+{% include twitter.html %}

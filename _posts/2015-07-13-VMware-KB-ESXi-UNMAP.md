@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Modification du fonctionnement d'UNMAP avec ESXi 5.5 et 6.0
+comments: True
 ---
 
 La lecture de cet [article](http://www.codyhosterman.com/2015/07/unmap-block-count-behavior-change-in-esxi-5-5-p3/) écrit par [Cody Hosterman](https://twitter.com/codyhosterman) m'a amené à revoir le script PowerCLI que je vous avais présenté dans un précèdent [post](http://blog.okcomputer.io/2015/03/26/VMware-ESXi-UNMAP-PowerCLI/).
@@ -14,3 +15,5 @@ J'ai modifié le script pour prendre en compte le pourcentage recommandé par VM
 Le fonctionnement du script a légerement changé. Il va automatiquement choisir un des hosts qui a accès au datastore pour executer la primitive UNMAP. Le ou les datastores peuvent être indiqués avec l'argument *-Datastore* ou bien par le pipeline *Get-Datastore | .\ReclaimUnusedSpace.ps1*
 
  Bien entendu vous trouverez le script complet sur [GitHub](https://github.com/equelin/vmware-powercli/blob/master/UNMAP/ReclaimUnusedSpace.ps1).
+
+ {% include twitter.html %}

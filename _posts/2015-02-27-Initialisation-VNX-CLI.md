@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Initialiser une baie EMC VNX en ligne de commande
+comments: True
 ---
 
 > Attention cette procédure ne s'applique qu'aux baies VNX block !
@@ -56,3 +57,5 @@ naviseccli -h 1.1.1.2 -user sysadmin -password sysadmin -scope 0 networkadmin -s
 ```
 
 Une fois toutes ces opérations réalisées avec succès, vous devriez être en mesure de vous connecter à la baie avec Unisphere. Il ne vous restera plus qu'à finaliser la configuration en spécifant par exemple les serveurs DNS et NTP.
+
+{% include twitter.html %}
