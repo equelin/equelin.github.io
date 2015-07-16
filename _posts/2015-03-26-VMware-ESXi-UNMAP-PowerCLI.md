@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Utiliser PowerCLI et la primitive UNMAP pour réclamer de l'espace libre sur des LUN thin
+comments: True
 ---
 
 > Attention cet article n'est plus d'actualité, merci de jeter un oeil à [celui-ci](http://blog.okcomputer.io/2015/07/13/VMware-KB-ESXi-UNMAP/)
