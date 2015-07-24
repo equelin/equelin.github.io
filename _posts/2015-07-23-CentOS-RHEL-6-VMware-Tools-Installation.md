@@ -11,6 +11,8 @@ Il existe plusieurs méthodes pour installer les VMware Tools sur un OS CentOS /
 
 Je préfère la deuxième méthode car l'installation et la mise à jour se font grâce aux gestionnaires de packages de votre distribution (yum, apt-get...). De plus l'empreinte sur le système est bien moins importante. Bien sûr VMware supporte officiellement cette méthode d'installation tant que l'OS est présent dans la [VMware Compatibility Matrix](http://www.vmware.com/resources/compatibility/search.php?deviceCategory=guestos).
 
+> La méthode présenté ci-dessous concerne bien que les version 6.X de CentOS / RHEL. A partir de la version 7.0 les packages open-vm-tools sont disponibles de base dans les repository des distribs.
+
 ### Installation des clés du repository VMware
 
 ```
@@ -30,7 +32,7 @@ gpgcheck = 1
 EOF
 ```
 
-L'adresse indiquée dans baseurl est à modifier en fonction de votre environnement. Par exemple pour avoir la dernière version des VMware Tools pour une infrastructure vSphere 5.5 il faudra fournir l'adresse suivante:
+L'adresse indiquée dans `baseurl` est à modifier en fonction de votre environnement. Par exemple pour avoir la dernière version des VMware Tools pour une infrastructure vSphere 5.5 il faudra fournir l'adresse suivante:
 
 ```
 http://packages.vmware.com/tools/esx/5.5latest/rhel6/\$basearch
