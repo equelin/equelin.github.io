@@ -23,7 +23,7 @@ rpm --import http://packages.vmware.com/tools/keys/VMWARE-PACKAGING-GPG-RSA-KEY.
 ### Création du fichier de configuration du repository
 
 ```
-cat << EOF > /tmp/test.repo
+cat << EOF > /etc/yum.repos.d/vmware-tools.repo
 [vmware-tools]
 name=VMware Tools
 baseurl = http://packages.vmware.com/tools/esx/latest/rhel6/\$basearch
