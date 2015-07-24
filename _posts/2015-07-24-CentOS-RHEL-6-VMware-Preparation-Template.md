@@ -20,7 +20,7 @@ J'ai scindé le script en 2 car il est nécessaire de rebooter l'OS pour prendre
 
 {% gist 5cedbdc3a98c97558319 %}
 
-Après tout ça vous n'aurez plus qu'à transformer votre VM en template. Attention, si vous devez redémarrer votre VM il faudra repasser les commandes prévues dans le deuxième script.
+Après tout ça vous n'aurez plus qu'à transformer votre VM en template. Attention, si vous devez redémarrer votre VM il faudra repasser les commandes du deuxième script.
 
 J'espère que ces informations vous aurons été utiles ! Vous pouvez vous attendre à voir un prochain article dédié à la préparation d'une VM CentOS / RHEL 7.X.
 
