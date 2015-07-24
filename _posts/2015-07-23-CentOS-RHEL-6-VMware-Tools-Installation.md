@@ -7,7 +7,7 @@ comments: True
 Il existe plusieurs méthodes pour installer les VMware Tools sur un OS CentOS / RHEL 6.6. Vous pouvez les déployer soit:
 
 - via le web client ou le viclient
-- en installant les open-vm-tools
+- depuis un repository géré par VMware
 
 Je préfère la deuxième méthode car l'installation et la mise à jour se font grâce aux gestionnaires de packages de votre distribution (yum, apt-get...). De plus l'empreinte sur le système est bien moins importante. Bien sûr VMware supporte officiellement cette méthode d'installation tant que l'OS est présent dans la [VMware Compatibility Matrix](http://www.vmware.com/resources/compatibility/search.php?deviceCategory=guestos).
 

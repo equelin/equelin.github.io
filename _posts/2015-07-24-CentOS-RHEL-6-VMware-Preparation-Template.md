@@ -8,7 +8,7 @@ La préparation d'une VM Linux Centos / RHEL pour la transformer en template est
 
 Je vous propose donc une liste de commandes que j'utilise. Elles ont été testées sur une CentOS 6.6 minimal mais elles devraient être compatibles avec les autres ditros de la même famille (RHEL, Oracle Linux...).
 
-Je pars du principe que l'OS est installé et qu'un accès à internet est possible pour les mises à jours avec `yum`. Vous verrez dans les commandes que j'ai fait le choix d'installer les `open-vm-tools`. Je vous invite à lire cet [article](http://blog.okcomputer.io/2015/07/23/CentOS-RHEL-6-VMware-Tools-Installation/) pour savoir pourquoi.
+Je pars du principe que l'OS est installé et qu'un accès à internet est possible pour les mises à jours avec `yum`. Vous verrez dans les commandes que j'ai fait le choix d'installer les VMware Tools depuis le repository VMware. Je vous invite à lire cet [article](http://blog.okcomputer.io/2015/07/23/CentOS-RHEL-6-VMware-Tools-Installation/) pour savoir pourquoi.
 
 J'ai scindé le script en 2 car il est nécessaire de rebooter l'OS pour prendre en compte les mises à jour.
 
