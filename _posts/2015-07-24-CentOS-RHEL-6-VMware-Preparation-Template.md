@@ -24,4 +24,8 @@ Après tout ça vous n'aurez plus qu'à transformer votre VM en template. Attent
 
 J'espère que ces informations vous aurons été utiles ! Vous pouvez vous attendre à voir un prochain article dédié à la préparation d'une VM CentOS / RHEL 7.X.
 
+### Sources
+
+Qu'on se le dise, je n'ai aucunement la prétention d'être un gourou Linux ! La plupart des commandes présentent dans cet article proviennent de différents blogs. Malheureusement je n'ai aucune trace des noms des auteurs qui ont pu "m'inspirer"... Si vous avez des infos, n'hésitez pas à me les communiquer.
+
 {% include twitter.html %}
