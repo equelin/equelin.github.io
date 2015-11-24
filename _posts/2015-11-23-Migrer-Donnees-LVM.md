@@ -18,7 +18,7 @@ Pour les besoins de la démonstration j'utilise une machine virtuelle sur laquel
 
 Un (bon) schéma étant souvent plus parlant qu'un long texte, j'ai résumé les différentes étapes dans l'image ci-dessous:
 
-![image](https://blog.okcomputer.io/img/2015-11-23-Migrer-Donnees-LVM-01.jpg "Methodologie pvmove")
+![image](https://raw.githubusercontent.com/equelin/equelin.github.io/dev/img/2015-11-23-Migrer-Donnees-LVM-01.jpg "Methodologie pvmove")
 
 ### Liste des commandes
 
