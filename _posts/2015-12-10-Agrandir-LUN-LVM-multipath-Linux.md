@@ -26,6 +26,7 @@ La taille d'origine est 10 Go, nous allons l'agrandir jusqu'à 50 Go.
 ##### Prise en compte par l'OS de l'agrandissement du LUN
 
 Lancer la commande `multipath -ll`. Prenez note des différents devices qui pointent vers le LUN (ici sdg, sdm,sds et sdy).
+
 ```
 srv01:root:/root> multipath -ll mpathj
 mpathj (36006016072312f00563e92d8039de511) dm-4 DGC,VRAID
@@ -39,6 +40,7 @@ size=10G features='1 queue_if_no_path' hwhandler='1 emc' wp=rw
 ```
 
 Faire un rescan de ces devices pour que l'OS voit que le LUN a été agrandi.
+
 ```
 srv01:root:/root> echo 1 > /sys/block/sdg/device/rescan
 srv01:root:/root> echo 1 > /sys/block/sdm/device/rescan
@@ -47,11 +49,13 @@ srv01:root:/root> echo 1 > /sys/block/sdy/device/rescan
 ```
 
 Recharger la configuration du multipathing pour la prise en compte des modifications.
+
 ```
 srv01:root:/root> multipath -r
 ```
 
 En relançant la commande `multipath -ll` on peut valider que la taille du volume est bien de 50 Go.
+
 ```
 srv01:root:/root> multipath -ll mpathj
 mpathj (36006016072312f00563e92d8039de511) dm-4 DGC,VRAID
@@ -67,6 +71,7 @@ size=50G features='1 queue_if_no_path' hwhandler='1 emc' wp=rw
 ##### Agrandissement du PV / VG / LV
 
 Maintenant que l'OS est au courant des changements, il reste à agrandir tous les éléments gérés par LVM. La commande `pvs` affiche des informations sur les PV existants.
+
 ```
 srv01:root:/root> pvs /dev/mapper/mpathj
   PV                 VG   Fmt  Attr PSize   PFree
@@ -74,6 +79,7 @@ srv01:root:/root> pvs /dev/mapper/mpathj
 ```
 
 La commande `pvresize` permet d'agrandir le PV en utilisant tout l'espace disponible sur le device.
+
 ```
 srv01:root:/root> pvresize /dev/mapper/mpathj
   Physical volume "/dev/mapper/mpathj" changed
@@ -81,6 +87,7 @@ srv01:root:/root> pvresize /dev/mapper/mpathj
 ```
 
 En relançant la commande `pvs`, on peut voir que la taille du PV à bien augmenté.
+
 ```
 srv01:root:/root> pvs /dev/mapper/mpathj
   PV                 VG   Fmt  Attr PSize   PFree
@@ -88,6 +95,7 @@ srv01:root:/root> pvs /dev/mapper/mpathj
 ```
 
 Augmenter la taille du PV entraine automatiquement l'agrandissement du VG. On peut le vérifier avec la commande `vgs`.
+
 ```
 srv01:root:/root> vgs vg05
   VG   #PV #LV #SN Attr   VSize   VFree
@@ -95,6 +103,7 @@ srv01:root:/root> vgs vg05
 ```
 
 Reste maintenant à augmenter la taille du LV, `lvs` permet d'obtenir des infos sur les LV existants.
+
 ```
 srv01:root:/root> lvs lv05
   LV   VG   Attr   LSize   Origin Snap%  Move Log Copy%  Convert
@@ -102,6 +111,7 @@ srv01:root:/root> lvs lv05
 ```
 
 `lvextend` avec l'argument `-l +100%FREE` va agrandir le LV en prenant tout l'espace disponible sur le VG.
+
 ```
 srv01:root:/root> lvextend -l +100%FREE /dev/vg05/lv05
   Extending logical volume lv05 to 49,00 GiB
@@ -109,6 +119,7 @@ srv01:root:/root> lvextend -l +100%FREE /dev/vg05/lv05
 ```
 
 On peut vérifier que le LV a bien été agrandi avec, encore une fois, la commande `lvs`.
+
 ```
 srv01:root:/root> lvs lv05
   LV   VG   Attr   LSize   Origin Snap%  Move Log Copy%  Convert
@@ -118,6 +129,7 @@ srv01:root:/root> lvs lv05
 ##### Resize du file system
 
 Dernière étape ! On va agrandir le file system. La commande `df -h` permet d'avoir des informations sur les files systems existants.
+
 ```
 srv01:root:/root> df -h
 Sys. de fichiers    Taille  Uti. Disp. Uti% Monté sur
@@ -137,6 +149,7 @@ tmpfs                  48G     0   48G   0% /dev/shm
 ```
 
 `resize2fs` va agrandir le file system de manière transparente pour les utilisateurs. Notez bien qu'il faut utiliser le device généré par LVM `/dev/mapper/vg05-lv05` au lieu de celui géré par multipathd. `/dev/mapper/mpathj`.  
+
 ```
 srv01:root:/root> resize2fs /dev/mapper/vg05-lv05
 resize2fs 1.41.12 (17-May-2010)
@@ -147,6 +160,7 @@ Le système de fichiers /dev/mapper/vg05-lv05 a maintenant une taille de 1284505
 ```
 
 On vérifie avev la commande `df` que le file system a bien la taille désirée.
+
 ```
 srv01:root:/root> df -h /dev/mapper/vg05-lv05
 Sys. de fichiers    Taille  Uti. Disp. Uti% Monté sur
