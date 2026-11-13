@@ -119,6 +119,35 @@ const http = require('node:http');
     await page.screenshot({ path: path.join(__dirname, '../test-results/mountain-wide-desktop.png'), fullPage: true });
     await page.setViewportSize({ width: 390, height: 844 });
     await page.screenshot({ path: path.join(__dirname, '../test-results/mountain-wide-mobile.png'), fullPage: true });
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.goto(base + '/en/experiments/alpine-morning/');
+    assert.equal(await page.locator('[data-alpine]').count(), 1);
+    const alpineCanvas = page.locator('canvas');
+    const colors = await alpineCanvas.evaluate(canvas => {
+      const data = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
+      const inks = new Set();
+      for (let i = 0; i < data.length; i += 4) {
+        if (data[i + 3] === 205) inks.add(`${data[i]},${data[i + 1]},${data[i + 2]}`);
+      }
+      return [...inks].sort();
+    });
+    // Canvas premultiplied-alpha round trips can round individual channels by one.
+    for (const expected of [[221,155,104], [91,125,131], [96,126,102], [96,131,153]]) {
+      assert.ok(colors.some(color => color.split(',').map(Number).every((channel, i) => Math.abs(channel - expected[i]) <= 1)), `Missing landscape ink: ${expected}`);
+    }
+    const alpineBefore = await alpineCanvas.evaluate(canvas => canvas.toDataURL());
+    await page.clock.runFor(4000);
+    assert.notEqual(await alpineCanvas.evaluate(canvas => canvas.toDataURL()), alpineBefore);
+    await page.locator('[data-study-toggle]').click();
+    const alpinePaused = await alpineCanvas.evaluate(canvas => canvas.toDataURL());
+    await page.clock.runFor(2000);
+    assert.equal(await alpineCanvas.evaluate(canvas => canvas.toDataURL()), alpinePaused);
+    await page.screenshot({ path: path.join(__dirname, '../test-results/alpine-morning-desktop.png'), fullPage: true });
+    await page.setViewportSize({ width: 390, height: 844 });
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+    await page.screenshot({ path: path.join(__dirname, '../test-results/alpine-morning-mobile.png'), fullPage: true });
+    await page.locator('.language-nav a').click();
+    assert.ok(page.url().endsWith('/fr/experiments/alpine-morning/'));
     const response = await page.goto(base + '/missing-page/');
     assert.equal(response.status(), 404);
     assert.equal(await page.locator('h1').count(), 1);
@@ -137,6 +166,9 @@ const http = require('node:http');
     await reducedPage.goto(base + '/en/experiments/mountains-wide/');
     assert.equal(await reducedPage.locator('[data-study-toggle]').isVisible(), false);
     assert.equal(await reducedPage.locator('canvas').isVisible(), true);
+    await reducedPage.goto(base + '/en/experiments/alpine-morning/');
+    assert.equal(await reducedPage.locator('[data-study-toggle]').isVisible(), false);
+    assert.equal(await reducedPage.locator('canvas').isVisible(), true);
     await reduced.close();
 
     const nojs = await browser.newContext({ javaScriptEnabled: false });
@@ -149,6 +181,9 @@ const http = require('node:http');
     assert.equal(await staticPage.locator('.mountain-study__fallback').isVisible(), true);
     assert.equal(await staticPage.locator('[data-study-toggle]').isVisible(), false);
     await staticPage.goto(base + '/fr/experiments/mountains-wide/');
+    assert.equal(await staticPage.locator('.mountain-study__fallback').isVisible(), true);
+    assert.equal(await staticPage.locator('[data-study-toggle]').isVisible(), false);
+    await staticPage.goto(base + '/fr/experiments/alpine-morning/');
     assert.equal(await staticPage.locator('.mountain-study__fallback').isVisible(), true);
     assert.equal(await staticPage.locator('[data-study-toggle]').isVisible(), false);
     await nojs.close();

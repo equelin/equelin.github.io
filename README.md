@@ -116,6 +116,12 @@ silhouettes and lighter mist. Dithering is applied at the displayed resolution
 and rebuilt on resize to avoid stretching the dot pattern. Neither experiment
 replaces the homepage.
 
+A third study at `/fr/experiments/alpine-morning/` and
+`/en/experiments/alpine-morning/` adds muted blue and sage inks, a light wash under
+the dots, and an apricot sun. Its green link accents are scoped to the preview
+through `assets/css/alpine-morning.css`. The monochrome studies stay unchanged;
+all three have localized controls, reduced-motion support, and SVG fallbacks.
+
 Edit `assets/js/mountain-preview.js`, `assets/css/mountain-preview.css`,
 `layouts/partials/mountain-study.html`, and
 `layouts/_default/mountain-preview.html` to experiment. The preview pages are

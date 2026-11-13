@@ -1,0 +1,5 @@
+/* Loaded only by the colour study; shared pages retain their original palette. */
+:root { --accent: #4e705d; }
+.mountain-study__controls { color: #62756b; }
+.wordmark-dot { color: #b87844; }
+::selection { background: #dde9dc; color: #26343c; }

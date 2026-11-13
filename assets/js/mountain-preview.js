@@ -14,6 +14,11 @@
   var motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   var width = canvas.width, height = canvas.height;
   var panorama = study.hasAttribute('data-panorama');
+  var alpine = study.hasAttribute('data-alpine');
+  // Distant blue, blue-sage middle ridge, sage foreground, and apricot sunlight.
+  var palette = [[96, 131, 153], [91, 125, 131], [96, 126, 102], [221, 155, 104]];
+  var monochrome = [113, 96, 77];
+  var inks = alpine ? new Uint8Array(width * height) : null;
   var pixels = context.createImageData(width, height);
   var terrain = new Float32Array(width * height);
   var thresholds = new Uint8Array(width * height);
@@ -42,9 +47,11 @@
     for (var y = 0; y < height; y++) {
       var index = y * width + x;
       var shade = 0;
+      var ink = 0;
       for (var layer = 0; layer < ridges.length; layer++) {
         var depth = y - ridges[layer];
         if (depth >= 0) {
+          ink = layer;
           // Fluted rock faces: directional bands, broken by the contours.
           var face = Math.sin(x * .043 + y * .038 + layer * 2);
           var detail = Math.sin(x * .12 - y * .055) * .025;
@@ -55,8 +62,14 @@
       }
       // A pale sun, almost absorbed into the paper.
       var sun = Math.hypot(x - (panorama ? width * .71 : 552), y - 49);
-      if (sun < 23) shade = .008;
-      else if (sun < 25) shade += .07;
+      if (sun < 23) {
+        shade = alpine ? .13 - .025 * (sun / 23) : .008;
+        if (alpine) ink = 3;
+      } else if (sun < 25) {
+        shade += .07;
+        if (alpine) ink = 3;
+      }
+      if (alpine) inks[index] = ink;
       terrain[index] = shade * (panorama ? 1 : smooth(x / 45) * smooth((width - 1 - x) / 45));
       thresholds[index] = bayer[(y % 8) * 8 + x % 8];
       var offset = index * 4;
@@ -88,9 +101,10 @@
         var i = y * outputWidth + x;
         sourceMap[i] = sourceY * width + sourceX;
         outputThresholds[i] = bayer[(y % 8) * 8 + x % 8];
-        output.data[i * 4] = 113;
-        output.data[i * 4 + 1] = 96;
-        output.data[i * 4 + 2] = 77;
+        var color = alpine ? palette[inks[sourceMap[i]]] : monochrome;
+        output.data[i * 4] = color[0];
+        output.data[i * 4 + 1] = color[1];
+        output.data[i * 4 + 2] = color[2];
       }
     }
   }
@@ -118,7 +132,9 @@
     }
     if (panorama) {
       for (var i = 0; i < sourceMap.length; i++) {
-        output.data[i * 4 + 3] = densities[sourceMap[i]] > (outputThresholds[i] + .5) / 64 ? 205 : 0;
+        var source = sourceMap[i];
+        var wash = alpine ? (inks[source] === 3 ? 34 : Math.round(densities[source] * 20)) : 0;
+        output.data[i * 4 + 3] = densities[source] > (outputThresholds[i] + .5) / 64 ? 205 : wash;
       }
     }
     context.putImageData(panorama ? output : pixels, 0, 0);
