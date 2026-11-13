@@ -21,7 +21,21 @@ function setup({ reduced = false, present = true } = {}) {
     addEventListener(name, callback) { events.click = callback; },
     setAttribute(name, value) { this[name] = value; }
   };
-  const banner = { querySelector: selector => selector === '[data-mountain-sun]' ? sun : toggle };
+  const layer = () => ({
+    transform: 'translate(0 0)',
+    setAttribute(name, value) { this[name] = value; }
+  });
+  const clouds = layer();
+  const birds = layer();
+  const ripples = layer();
+  const elements = {
+    '[data-mountain-sun]': sun,
+    '[data-mountain-toggle]': toggle,
+    '[data-mountain-clouds]': clouds,
+    '[data-mountain-birds]': birds,
+    '[data-mountain-ripples]': ripples
+  };
+  const banner = { querySelector: selector => elements[selector] || null };
   const motion = {
     matches: reduced,
     addEventListener(name, callback) { events.motion = callback; }
@@ -47,7 +61,7 @@ function setup({ reduced = false, present = true } = {}) {
     frames.clear();
     pending.forEach(callback => callback(time));
   }
-  return { sun, toggle, frames, document, motion, events, tick,
+  return { sun, clouds, birds, ripples, toggle, frames, document, motion, events, tick,
     visibility: visible => visibilityCallback([{ isIntersecting: visible }]) };
 }
 
@@ -130,6 +144,45 @@ test('the full orbit loops back behind the mountains', () => {
   assert.equal(state.sun.position, 'translate(104 100)');
   state.tick(30000);
   assert.equal(state.sun.position, 'translate(240 28)');
+});
+
+test('all ambient layers move on the shared clock and freeze when paused', () => {
+  const state = setup();
+  const snapshot = () => JSON.stringify([state.clouds, state.birds, state.ripples]);
+  const initial = snapshot();
+  state.tick();
+  state.tick(5000);
+  assert.notEqual(snapshot(), initial);
+  for (const element of [state.clouds, state.birds, state.ripples]) {
+    assert.ok(element.transform.match(/-?\d+/g).map(Number).every(n => n % 2 === 0));
+  }
+  state.events.click();
+  const paused = snapshot();
+  state.tick(10000);
+  assert.equal(snapshot(), paused);
+  assert.equal(state.frames.size, 0);
+});
+
+test('reduced motion restores the complete static illustration', () => {
+  const state = setup();
+  state.tick();
+  state.tick(8000);
+  state.motion.matches = true;
+  state.events.motion();
+  for (const element of [state.clouds, state.birds, state.ripples]) {
+    assert.equal(element.transform, 'translate(0 0)');
+  }
+  assert.equal(state.ripples.opacity, '0.65');
+  assert.equal(state.frames.size, 0);
+});
+
+test('cloud tiles wrap by exactly one scene width', () => {
+  const state = setup();
+  state.tick();
+  const initial = state.clouds.transform;
+  state.tick(240000);
+  assert.equal(state.clouds.transform, initial);
+  assert.equal(state.frames.size, 1);
 });
 
 test('pages without the banner do nothing', () => {

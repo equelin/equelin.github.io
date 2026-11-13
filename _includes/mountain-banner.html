@@ -1,30 +1,75 @@
-<!-- Original pixel landscape. The sun is drawn before the ridges so it passes behind them. -->
+<!-- Original pixel-art alpine scene. All moving layers share one playback clock. -->
 <div class="mountain-banner container" data-mountain-banner>
-  <svg class="mountain-banner__scene" viewBox="0 0 480 128" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" shape-rendering="crispEdges">
+  <svg class="mountain-banner__scene" viewBox="0 0 480 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" shape-rendering="crispEdges">
     <defs>
-      <pattern id="mountain-grain" class="mountain-banner__grain" width="8" height="8" patternUnits="userSpaceOnUse">
-        <path d="M0 0h2v2H0zM4 4h2v2H4z" fill="currentColor" />
-      </pattern>
+      <linearGradient id="mountain-sky" x2="0" y2="1">
+        <stop stop-color="#444768"/><stop offset=".5" stop-color="#bb8190"/><stop offset="1" stop-color="#f4bc91"/>
+      </linearGradient>
+      <linearGradient id="mountain-water" x2="0" y2="1">
+        <stop stop-color="#bb8a9a"/><stop offset="1" stop-color="#424f69"/>
+      </linearGradient>
+      <linearGradient id="mountain-light" x2="0" y2="1">
+        <stop stop-color="#ffdfaa" stop-opacity=".65"/><stop offset="1" stop-color="#ffdfaa" stop-opacity="0"/>
+      </linearGradient>
+      <g id="mountain-pine">
+        <path d="M-2 0H2V-8H10V-12H6V-16H8V-20H4V-24H6V-28H2V-34H-2V-28H-6V-24H-4V-20H-8V-16H-6V-12H-10V-8H-2Z" fill="currentColor"/>
+      </g>
+      <g id="mountain-cloud" fill="#fbd3b5">
+        <path d="M0 8H12V4H22V0H42V4H54V8H70V12H0Z"/>
+        <path d="M10 14H52V16H10Z" opacity=".35"/>
+      </g>
     </defs>
 
-    <!-- A little pixel of light, also the static / reduced-motion composition. -->
-    <g class="mountain-banner__sun" data-mountain-sun transform="translate(240 28)">
-      <path d="M-4-10H4V-8H8V-4H10V4H8V8H4V10H-4V8H-8V4H-10V-4H-8V-8H-4Z" fill="currentColor" />
+    <path fill="url(#mountain-sky)" d="M0 0H480V142H0Z"/>
+    <!-- Sparse, still points of light keep the sky quiet rather than glittery. -->
+    <path fill="#fce4ce" opacity=".65" d="M32 18h2v2h-2zM86 34h2v2h-2zM158 14h2v2h-2zM306 22h2v2h-2zM418 14h2v2h-2zM450 42h2v2h-2z"/>
+    <g data-mountain-sun transform="translate(240 28)">
+      <path fill="#ffcf99" opacity=".08" d="M-20-28H20V-20H28V20H20V28H-20V20H-28V-20H-20Z"/>
+      <path fill="#ffcf99" opacity=".12" d="M-12-20H12V-12H20V12H12V20H-12V12H-20V-12H-12Z"/>
+      <path fill="#ffe3ae" d="M-4-10H4V-8H8V-4H10V4H8V8H4V10H-4V8H-8V4H-10V-4H-8V-8H-4Z"/>
+    </g>
+    <g data-mountain-clouds opacity=".45" transform="translate(0 0)">
+      <use href="#mountain-cloud" x="24" y="38"/>
+      <use href="#mountain-cloud" x="318" y="24"/>
+      <use href="#mountain-cloud" x="-456" y="38"/>
+      <use href="#mountain-cloud" x="-162" y="24"/>
+      <use href="#mountain-cloud" x="504" y="38"/>
+      <use href="#mountain-cloud" x="798" y="24"/>
     </g>
 
-    <!-- Distant, pale ridge. Every contour sits on the same two-unit pixel grid. -->
-    <path class="mountain-banner__distant" d="M0 104H16V96H32V88H48V80H64V72H80V64H92V56H104V48H112V40H124V48H136V56H148V64H160V72H172V80H188V88H204V96H224V104H244V96H260V88H276V80H288V72H300V64H312V56H324V48H332V40H340V32H348V24H356V32H364V40H376V48H388V56H400V64H412V72H428V80H444V88H460V96H480V128H0Z" fill="currentColor" />
+    <!-- Overlapping, asymmetric silhouettes and lit faces create real depth. -->
+    <path fill="#9c879f" d="M0 106H16V94H30V86H42V72H54V64H62V54H70V62H80V72H94V86H112V98H136V92H154V80H166V68H178V58H190V48H198V40H206V52H216V64H228V76H240V88H256V98H278V88H292V76H306V64H318V52H328V44H338V56H350V68H362V80H380V92H404V84H418V72H430V62H440V76H454V90H468V98H480V142H0Z"/>
+    <path fill="#766e8c" d="M198 40H206V52H216V64H228V76H240V88H256V98H278V142H202V100H214V88H206V72H198ZM328 44H338V56H350V68H362V80H380V92H404V142H342V100H354V88H342V70H334V58H328Z"/>
+    <path fill="#575b78" d="M0 106H14V94H26V82H38V70H50V58H58V46H66V38H74V48H82V60H94V70H104V84H116V94H130V106H150V116H176V126H204V138H0ZM268 138V126H288V114H304V100H318V86H330V72H342V60H350V48H358V56H366V68H376V78H388V90H400V100H416V110H436V120H458V126H480V144Z"/>
+    <path fill="#414b68" d="M66 38H74V48H82V60H94V70H104V84H116V94H130V106H150V116H176V126H204V138H92V120H104V108H90V94H78V78H70V58H66ZM350 48H358V56H366V68H376V78H388V90H400V100H416V110H436V120H458V126H480V144H368V124H380V112H366V96H358V80H350Z"/>
+    <path fill="#e9c7c4" d="M50 58H58V46H66V38H74V48H82V60H90V66H78V60H70V56H66V64H58V58ZM330 72H342V60H350V48H358V56H366V68H372V74H362V70H354V64H350V72H342V78H336V72Z"/>
+    <path fill="#bf9fae" d="M66 38H74V48H82V60H90V66H78V60H70V56H66ZM350 48H358V56H366V68H372V74H362V70H354V64H350Z"/>
 
-    <!-- Main peaks, with a broad open valley between them. -->
-    <path class="mountain-banner__ridge" d="M0 96H16V88H32V80H48V72H64V64H76V56H88V48H96V40H108V48H120V56H128V64H140V72H152V80H168V88H184V96H204V104H224V112H256V104H276V96H292V88H304V80H316V72H328V64H336V56H344V48H352V40H364V48H372V56H380V64H392V72H404V80H420V88H436V96H456V104H480V128H0Z" fill="currentColor" />
-
-    <!-- Snow is deliberately sparse: little stepped cuts, not smooth triangles. -->
-    <path class="mountain-banner__snow" d="M88 48H96V40H108V48H120V56H128V64H116V60H108V56H100V60H92V56H88ZM336 56H344V48H352V40H364V48H372V56H380V64H368V60H360V56H352V64H344V60H336Z" fill="currentColor" />
-
-    <!-- Quiet, stippled foothills soften the transition into the white page. -->
-    <path class="mountain-banner__foothills" d="M0 112H28V108H56V104H84V100H116V104H148V108H176V112H208V116H264V112H292V108H320V104H352V100H384V104H416V108H448V112H480V128H0Z" fill="currentColor" />
-    <path d="M0 112H28V108H56V104H84V100H116V104H148V108H176V112H208V116H264V112H292V108H320V104H352V100H384V104H416V108H448V112H480V124H0Z" fill="url(#mountain-grain)" />
+    <g data-mountain-birds transform="translate(0 0)" stroke="#484962" stroke-width="2">
+      <path d="M218 70h4v2h4v-2h4M240 64h4v2h4v-2h4M256 74h4v2h4v-2h4"/>
+    </g>
+    <!-- Lake, broken light, and low wooded shores. -->
+    <path fill="url(#mountain-water)" d="M0 136H480V200H0Z"/>
+    <path fill="#48516c" opacity=".3" d="M0 138H156V144H132V150H108V156H80V162H46V168H0ZM316 138H480V172H442V164H410V158H380V150H352V144H316Z"/>
+    <path fill="url(#mountain-light)" d="M226 136H252V142H262V150H274V160H286V172H300V184H314V200H166V184H180V172H194V160H206V150H218V142H226Z"/>
+    <g data-mountain-ripples fill="#ffdbb3" opacity=".65" transform="translate(0 0)">
+      <path d="M226 140h26v2h-26zM238 146h24v2h-24zM212 152h34v2h-34zM250 158h22v2h-22zM218 164h42v2h-42zM198 174h30v2h-30zM240 180h46v2h-46zM210 190h32v2h-32z"/>
+    </g>
+    <path stroke="#cfb4bc" stroke-width="2" opacity=".35" d="M156 144h30m108 8h30m-222 20h46m180 6h38m-214 12h28m224-30h28"/>
+    <path fill="#35465b" d="M0 126H28V130H58V134H92V138H126V142H150V146H102V150H64V154H24V158H0ZM480 124H458V130H430V134H398V138H368V142H344V146H390V150H426V154H454V160H480Z"/>
+    <g color="#35465b">
+      <use href="#mountain-pine" transform="translate(18 136) scale(.7)"/><use href="#mountain-pine" transform="translate(38 138) scale(.5)"/><use href="#mountain-pine" transform="translate(64 142) scale(.6)"/><use href="#mountain-pine" transform="translate(94 144) scale(.4)"/>
+      <use href="#mountain-pine" transform="translate(388 142) scale(.5)"/><use href="#mountain-pine" transform="translate(414 138) scale(.7)"/><use href="#mountain-pine" transform="translate(438 134) scale(.5)"/><use href="#mountain-pine" transform="translate(462 132) scale(.8)"/>
+    </g>
+    <path fill="#243748" d="M0 174H22V178H46V182H66V186H90V192H124V196H160V200H0ZM480 174H454V180H434V184H408V190H384V196H350V200H480Z"/>
+    <g color="#243748">
+      <use href="#mountain-pine" x="12" y="184"/><use href="#mountain-pine" transform="translate(38 190) scale(1.5)"/><use href="#mountain-pine" x="68" y="194"/><use href="#mountain-pine" transform="translate(92 200) scale(.65)"/>
+      <use href="#mountain-pine" transform="translate(402 200) scale(.8)"/><use href="#mountain-pine" transform="translate(430 194) scale(1.35)"/><use href="#mountain-pine" transform="translate(464 188) scale(1.8)"/>
+    </g>
   </svg>
-  <button class="mountain-banner__toggle" type="button" data-mountain-toggle aria-label="Pause mountain animation" hidden>Pause</button>
+  <div class="mountain-banner__caption">
+    <span class="mountain-banner__label"><span aria-hidden="true">✦</span> A little quiet on the internet</span>
+    <button class="mountain-banner__toggle" type="button" data-mountain-toggle aria-label="Pause mountain animation" hidden>Pause</button>
+  </div>
 </div>
 <script src="{{ '/public/js/mountain-banner.js' | relative_url }}" defer></script>

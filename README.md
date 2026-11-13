@@ -4,11 +4,14 @@ Personal Jekyll blog, published with GitHub Pages at https://okcomputer.cloud.
 
 ## Mountain banner
 
-The homepage has an original SVG pixel landscape with a sun crossing the valley
-on a 60-second loop. No framework, video, external artwork, or build dependency
-is required. The SVG stays visible without JavaScript.
+The homepage has an original SVG pixel-art alpine sunset: shaded snowy peaks,
+layered pine forests, a lake with shimmering light, drifting clouds, and birds.
+The sun crosses the valley on a 60-second loop; the clouds tile seamlessly over
+four minutes. All movement shares one playback clock. No framework, video,
+external artwork, or build dependency is required. The full illustration stays
+visible without JavaScript.
 
-- `_includes/mountain-banner.html`: stepped mountains, sun, and pause control.
+- `_includes/mountain-banner.html`: layered illustration, SVG palette, and pause control.
 - `public/css/mountain-banner.css`: palette, spacing, and responsive sizing.
 - `public/js/mountain-banner.js`: orbit and playback behaviour.
 
@@ -18,9 +21,10 @@ The existing article layouts are otherwise unchanged.
 
 The animation respects reduced-motion preferences, pauses outside the viewport
 and in background tabs, and has a keyboard-accessible Pause / Resume button.
-Change `duration` in the script to adjust its speed; change the colour rules in
-the stylesheet to adjust the palette. Keep the SVG and the script's static sun
-position in sync if editing the composition.
+Change `duration` in the script to adjust the sun's speed; edit SVG fills and
+gradient stops in the include to adjust the landscape palette. The stylesheet
+controls framing and the caption. Keep the SVG and the script's static layer
+positions in sync if editing the composition.
 
 Run the dependency-free animation tests with Node.js:
 

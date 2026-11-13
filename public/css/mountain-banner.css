@@ -1,4 +1,4 @@
-/* Original pixel landscape: no images, web fonts, or animation dependencies. */
+/* Original, self-contained pixel landscape; no artwork or animation dependencies. */
 .mountain-banner {
   position: relative;
   padding-top: 2.5rem;
@@ -10,25 +10,33 @@
   width: 100%;
   height: auto;
   overflow: hidden;
+  border-radius: 4px;
+  background: #bb8190;
+  box-shadow: 0 8px 28px -16px rgba(36, 55, 72, .45);
 }
 
-.mountain-banner__sun { color: #626b73; }
-.mountain-banner__distant { color: #e3e7e9; }
-.mountain-banner__ridge { color: #6b747c; }
-.mountain-banner__snow { color: #f4f5f6; }
-.mountain-banner__foothills { color: #fff; }
-.mountain-banner__grain { color: #d9dfe2; }
+.mountain-banner__caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  min-height: 44px;
+  font: 11px/1.5 system-ui, sans-serif;
+  color: #727078;
+}
+
+.mountain-banner__label { letter-spacing: .035em; }
+.mountain-banner__label span { margin-right: .35rem; color: #966b59; }
 
 .mountain-banner__toggle {
-  display: block;
+  flex-shrink: 0;
   min-width: 44px;
   min-height: 44px;
-  margin: 0 0 0 auto;
   padding: .5rem 0 .5rem .75rem;
   border: 0;
   background: transparent;
-  color: #626b73;
-  font: 12px/1.5 system-ui, sans-serif;
+  color: #62616b;
+  font: inherit;
   cursor: pointer;
 }
 
@@ -41,4 +49,5 @@
 
 @media (max-width: 37.99em) {
   .mountain-banner { padding-top: 3.5rem; }
+  .mountain-banner__caption { font-size: 10px; }
 }
