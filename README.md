@@ -124,6 +124,7 @@ Fast, dependency-free checks:
 ```sh
 node --test _tests/*.test.cjs
 python3 _tests/translations.test.py
+python3 _tests/deployment.test.py
 python3 scripts/build.py
 python3 scripts/check-site.py
 ```
@@ -155,10 +156,10 @@ Hugo is version-pinned and its downloaded archive is checksum-verified.
 Source → **GitHub Actions**. No custom token or deployment secret is required.
 
 For compatibility with the repository’s original branch-based Pages setting,
-the workflow also runs after GitHub’s legacy `pages build and deployment` workflow.
-That ensures an automatic legacy deployment cannot overwrite the Hugo site.
-Once the source is GitHub Actions, that compatibility trigger is inert and may
-be removed. The root `CNAME` is retained for the legacy setting; `static/CNAME`
-places the same domain in Hugo’s build output. Keep both in sync if changing domains.
+the deploy job first waits for GitHub’s legacy `pages build and deployment` run
+for the same commit to finish. Hugo then deploys last, avoiding competing
+publishers. This check is skipped automatically when the source is GitHub Actions.
+The root `CNAME` is retained for the legacy setting; `static/CNAME` places the same
+domain in Hugo’s build output. Keep both in sync if changing domains.
 
 The custom domain stays **okcomputer.cloud**; no DNS change is required.

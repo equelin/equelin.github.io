@@ -6,13 +6,6 @@ on:
   pull_request:
     branches: [master]
   workflow_dispatch:
-  # Compatibility while Pages still uses its original branch-based source:
-  # deploy Hugo again after the legacy Jekyll workflow, so it cannot overwrite us.
-  # This trigger becomes inert when Settings → Pages → Source is GitHub Actions.
-  workflow_run:
-    workflows: [pages build and deployment]
-    types: [completed]
-    branches: [master]
 
 permissions:
   contents: read
@@ -26,7 +19,6 @@ env:
 
 jobs:
   build:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.head_sha == github.sha
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
@@ -46,8 +38,10 @@ jobs:
           rm hugo.tar.gz checksums.txt
       - name: Test animation
         run: node --test _tests/*.test.cjs
-      - name: Test translations and drafts
-        run: python3 _tests/translations.test.py
+      - name: Test translations, drafts, and deployment ordering
+        run: |
+          python3 _tests/translations.test.py
+          python3 _tests/deployment.test.py
       - name: Build production site
         run: python3 scripts/build.py
       - name: Validate site, translations, redirects, and feeds
@@ -68,12 +62,21 @@ jobs:
     needs: build
     runs-on: ubuntu-24.04
     permissions:
+      contents: read
+      actions: read
       pages: write
       id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Avoid competing legacy Pages deployments
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/wait-for-legacy-pages.py
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
