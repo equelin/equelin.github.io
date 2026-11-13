@@ -1,0 +1,45 @@
+baseURL = 'https://okcomputer.cloud/'
+title = 'OK Computer'
+defaultContentLanguage = 'fr'
+defaultContentLanguageInSubdir = true
+enableRobotsTXT = true
+disableKinds = ['taxonomy', 'term']
+summaryLength = 32
+
+[params]
+  author = 'Erwan Quélin'
+  email = 'equelin@gmail.com'
+  github = 'https://github.com/equelin'
+
+[languages.fr]
+  locale = 'fr-FR'
+  label = 'Français'
+  weight = 1
+  [languages.fr.params]
+    description = 'Notes et retours d’expérience sur les systèmes, le logiciel et l’IA, par Erwan Quélin.'
+
+[languages.en]
+  locale = 'en-GB'
+  label = 'English'
+  weight = 2
+  [languages.en.params]
+    description = 'Notes and practical lessons on systems, software, and AI, by Erwan Quélin.'
+
+[outputs]
+  home = ['HTML', 'RSS']
+  section = ['HTML', 'RSS']
+
+[markup.highlight]
+  style = 'github'
+  tabWidth = 2
+
+[markup.goldmark.renderer]
+  unsafe = false
+
+[markup.tableOfContents]
+  startLevel = 2
+  endLevel = 3
+
+[sitemap]
+  changeFreq = ''
+  priority = -1

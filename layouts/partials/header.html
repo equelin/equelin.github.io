@@ -1,0 +1,23 @@
+<header class="site-header container">
+  <a class="wordmark" href="{{ site.Home.RelPermalink }}" aria-label="{{ site.Title }} — {{ i18n "home" }}">OK Computer<span class="wordmark-dot" aria-hidden="true">.</span></a>
+  <nav class="site-nav" aria-label="{{ i18n "nav" }}">
+    {{ with site.GetPage "/articles" }}<a href="{{ .RelPermalink }}"{{ if eq $.Section "articles" }} aria-current="page"{{ end }}>{{ i18n "articles" }}</a>{{ end }}
+    {{ with site.GetPage "/about" }}<a href="{{ .RelPermalink }}"{{ if eq $.RelPermalink .RelPermalink }} aria-current="page"{{ end }}>{{ i18n "about" }}</a>{{ end }}
+  </nav>
+  <nav class="language-nav" aria-label="{{ i18n "languages" }}">
+    {{ $page := . }}
+    {{ range hugo.Sites }}
+      {{ $language := .Language.Lang }}
+      {{ if eq $language $page.Language.Lang }}
+        <span class="language-current" aria-current="true" lang="{{ $language }}">{{ upper $language }}</span>
+      {{ else }}
+        {{ $translations := where $page.Translations "Language.Lang" $language }}
+        {{ with $translations }}
+          {{ range . }}<a href="{{ .RelPermalink }}" hreflang="{{ $language }}" lang="{{ $language }}" aria-label="{{ .Language.Label }}">{{ upper $language }}</a>{{ end }}
+        {{ else }}
+          <span class="language-unavailable" aria-disabled="true" title="{{ i18n "translationUnavailable" }}">{{ upper $language }}</span>
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  </nav>
+</header>

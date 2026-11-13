@@ -1,0 +1,9 @@
+<div class="empty-state">
+  <h3>{{ i18n "empty" }}</h3>
+  <p>{{ i18n "emptyText" }}</p>
+  {{ range hugo.Sites }}
+    {{ if ne .Language.Lang $.Language.Lang }}
+      {{ with .GetPage "/articles" }}<a class="text-link" href="{{ .RelPermalink }}" hreflang="{{ .Language.Lang }}">{{ i18n "otherArchive" }} <span aria-hidden="true">→</span></a>{{ end }}
+    {{ end }}
+  {{ end }}
+</div>

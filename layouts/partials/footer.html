@@ -1,0 +1,8 @@
+<footer class="site-footer container">
+  <div><span>© {{ now.Year }} {{ site.Params.author }}</span><p>{{ i18n "footer" }}</p></div>
+  <nav aria-label="{{ if eq site.Language.Lang "fr" }}Liens utiles{{ else }}Useful links{{ end }}">
+    <a href="{{ site.Params.github }}">GitHub</a>
+    <a href="mailto:{{ site.Params.email }}">Contact</a>
+    {{ with site.Home.OutputFormats.Get "RSS" }}<a href="{{ .RelPermalink }}">{{ i18n "rss" }}</a>{{ end }}
+  </nav>
+</footer>

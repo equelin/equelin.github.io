@@ -1,0 +1,62 @@
+[articles]
+other = 'Articles'
+[about]
+other = 'À propos'
+[nav]
+other = 'Navigation principale'
+[languages]
+other = 'Langue'
+[skip]
+other = 'Aller au contenu'
+[introLabel]
+other = 'Le carnet technique d’Erwan Quélin'
+[introTitle]
+other = 'Systèmes, logiciel & curiosité.'
+[introText]
+other = 'Des notes de terrain sur l’infrastructure, l’automatisation et le logiciel. Et de nouvelles pistes à explorer du côté de l’IA.'
+[latest]
+other = 'Derniers articles'
+[allArticles]
+other = 'Tous les articles'
+[archiveIntro]
+other = 'Retours d’expérience, procédures et notes techniques, au fil du temps.'
+[empty]
+other = 'Pas encore d’article dans cette langue.'
+[emptyText]
+other = 'En attendant, les articles en anglais sont disponibles dans leurs archives.'
+[otherArchive]
+other = 'Voir les articles en anglais'
+[readingTime]
+other = '{{ .Count }} min de lecture'
+[back]
+other = 'Retour aux articles'
+[legacy]
+other = 'Dans les archives'
+[legacyNote]
+other = 'Cet article date de {{ . }}. Il est conservé comme référence historique : les versions, commandes et recommandations peuvent ne plus être adaptées aux systèmes actuels.'
+[untranslated]
+other = 'Cet article n’est pas encore disponible en anglais.'
+[translationUnavailable]
+other = 'Traduction anglaise non disponible'
+[toc]
+other = 'Dans cet article'
+[quiet]
+other = 'Un peu de calme sur Internet'
+[pause]
+other = 'Pause'
+[resume]
+other = 'Reprendre'
+[pauseLabel]
+other = 'Mettre l’animation en pause'
+[resumeLabel]
+other = 'Reprendre l’animation'
+[footer]
+other = 'Un site léger, des idées à partager.'
+[rss]
+other = 'Flux RSS'
+[notFound]
+other = 'Cette page est introuvable.'
+[notFoundText]
+other = 'Le lien a peut-être changé. Retrouvez les articles ou revenez à l’accueil.'
+[home]
+other = 'Accueil'

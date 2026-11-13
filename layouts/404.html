@@ -1,0 +1,9 @@
+{{ define "main" }}
+<section class="page-heading not-found">
+  <p class="eyebrow">404</p>
+  <h1>{{ i18n "notFound" }}</h1>
+  <p>{{ i18n "notFoundText" }}</p>
+  <a class="text-link" href="{{ site.Home.RelPermalink }}">{{ i18n "home" }} →</a>
+  <p lang="en">Looking for something? <a href="{{ "en/" | relURL }}">Visit the English homepage.</a></p>
+</section>
+{{ end }}

@@ -4,7 +4,7 @@ const { readFileSync } = require('node:fs');
 const { runInNewContext } = require('node:vm');
 const { join } = require('node:path');
 
-const source = readFileSync(join(__dirname, '../public/js/mountain-banner.js'), 'utf8');
+const source = readFileSync(join(__dirname, '../assets/js/mountain-banner.js'), 'utf8');
 
 function setup({ reduced = false, present = true } = {}) {
   const frames = new Map();

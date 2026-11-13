@@ -1,0 +1,10 @@
+<article class="post-card">
+  <div class="post-meta">
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_medium" }}</time>
+    <span aria-hidden="true">·</span><span>{{ i18n "readingTime" (dict "Count" .ReadingTime) }}</span>
+    {{ range .Translations }}<a class="translation-link" href="{{ .RelPermalink }}" hreflang="{{ .Language.Lang }}" lang="{{ .Language.Lang }}">{{ .Language.Label }}</a>{{ end }}
+  </div>
+  <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+  <p>{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | htmlUnescape | truncate 200 }}{{ end }}</p>
+  {{ with .Params.tags }}<ul class="tags" aria-label="{{ if eq site.Language.Lang "fr" }}Sujets{{ else }}Topics{{ end }}">{{ range . }}<li>{{ . }}</li>{{ end }}</ul>{{ end }}
+</article>

@@ -1,0 +1,62 @@
+[articles]
+other = 'Articles'
+[about]
+other = 'About'
+[nav]
+other = 'Main navigation'
+[languages]
+other = 'Language'
+[skip]
+other = 'Skip to content'
+[introLabel]
+other = 'A technical notebook by Erwan Quélin'
+[introTitle]
+other = 'Systems, software & curiosity.'
+[introText]
+other = 'Field notes on infrastructure, automation, and software. With new directions to explore in AI.'
+[latest]
+other = 'Latest articles'
+[allArticles]
+other = 'All articles'
+[archiveIntro]
+other = 'Practical lessons, walkthroughs, and technical notes collected along the way.'
+[empty]
+other = 'No articles in English yet.'
+[emptyText]
+other = 'In the meantime, you can explore the existing French articles. Each post shows its available translations.'
+[otherArchive]
+other = 'Explore the French articles'
+[readingTime]
+other = '{{ .Count }} min read'
+[back]
+other = 'Back to articles'
+[legacy]
+other = 'From the archives'
+[legacyNote]
+other = 'This article was published in {{ . }} and is preserved as a historical reference. Versions, commands, and recommendations may no longer apply to current systems.'
+[untranslated]
+other = 'This article is not yet available in French.'
+[translationUnavailable]
+other = 'French translation unavailable'
+[toc]
+other = 'On this page'
+[quiet]
+other = 'A little quiet on the internet'
+[pause]
+other = 'Pause'
+[resume]
+other = 'Resume'
+[pauseLabel]
+other = 'Pause mountain animation'
+[resumeLabel]
+other = 'Resume mountain animation'
+[footer]
+other = 'A light site. A place to share ideas.'
+[rss]
+other = 'RSS feed'
+[notFound]
+other = 'This page could not be found.'
+[notFoundText]
+other = 'The link may have changed. Explore the articles or head back home.'
+[home]
+other = 'Home'

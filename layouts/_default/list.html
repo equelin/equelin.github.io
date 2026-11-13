@@ -1,0 +1,16 @@
+{{ define "main" }}
+<header class="page-heading">
+  <p class="eyebrow">{{ site.Title }} / {{ .Language.Label }}</p>
+  <h1>{{ .Title }}</h1>
+  <p class="intro-description">{{ i18n "archiveIntro" }}</p>
+</header>
+{{ $posts := .RegularPages.ByDate.Reverse }}
+{{ range $posts.GroupByDate "2006" }}
+<section class="archive-year" aria-labelledby="year-{{ .Key }}">
+  <h2 id="year-{{ .Key }}">{{ .Key }}</h2>
+  {{ range .Pages }}{{ partial "post-card.html" . }}{{ end }}
+</section>
+{{ else }}
+  {{ partial "empty-articles.html" . }}
+{{ end }}
+{{ end }}

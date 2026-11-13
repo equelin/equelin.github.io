@@ -1,0 +1,28 @@
+{{ define "main" }}
+<article class="single">
+  <header class="page-heading">
+    {{ if eq .Section "articles" }}
+    {{ with site.GetPage "/articles" }}<a class="back-link" href="{{ .RelPermalink }}">← {{ i18n "back" }}</a>{{ end }}
+    <div class="post-meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_long" }}</time><span aria-hidden="true">·</span><span>{{ i18n "readingTime" (dict "Count" .ReadingTime) }}</span></div>
+    {{ else }}<p class="eyebrow">{{ site.Params.author }}</p>{{ end }}
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="intro-description">{{ . }}</p>{{ end }}
+    {{ if eq .Section "articles" }}
+    <p class="translation-note">{{ with .Translations }}{{ range . }}<a href="{{ .RelPermalink }}" hreflang="{{ .Language.Lang }}" lang="{{ .Language.Lang }}">{{ .Language.Label }} →</a>{{ end }}{{ else }}{{ i18n "untranslated" }}{{ end }}</p>
+    {{ end }}
+  </header>
+  {{ if .Params.legacy }}
+  <aside class="archive-note"><strong>{{ i18n "legacy" }}</strong><p>{{ i18n "legacyNote" (.Date.Format "2006") }}</p></aside>
+  {{ end }}
+  {{ if and (eq .Section "articles") (gt .WordCount 350) }}
+    {{ with .TableOfContents }}<details class="toc"><summary>{{ i18n "toc" }}</summary>{{ . }}</details>{{ end }}
+  {{ end }}
+  <div class="prose">{{ .Content }}</div>
+  {{ if eq .Section "articles" }}
+  <footer class="article-footer">
+    {{ with .Params.tags }}<ul class="tags">{{ range . }}<li>{{ . }}</li>{{ end }}</ul>{{ end }}
+    {{ with site.GetPage "/articles" }}<a class="text-link" href="{{ .RelPermalink }}">← {{ i18n "allArticles" }}</a>{{ end }}
+  </footer>
+  {{ end }}
+</article>
+{{ end }}

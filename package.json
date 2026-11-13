@@ -1,0 +1,11 @@
+{
+  "name": "okcomputer-site-checks",
+  "private": true,
+  "scripts": {
+    "test": "node --test _tests/*.test.cjs",
+    "test:browser": "node _tests/site.browser.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.65.0"
+  }
+}

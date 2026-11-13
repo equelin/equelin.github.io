@@ -1,0 +1,79 @@
+name: Hugo Pages
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+  # Compatibility while Pages still uses its original branch-based source:
+  # deploy Hugo again after the legacy Jekyll workflow, so it cannot overwrite us.
+  # This trigger becomes inert when Settings → Pages → Source is GitHub Actions.
+  workflow_run:
+    workflows: [pages build and deployment]
+    types: [completed]
+    branches: [master]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.event_name == 'pull_request' && github.ref || 'production' }}
+  cancel-in-progress: true
+
+env:
+  HUGO_VERSION: 0.170.0
+
+jobs:
+  build:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.head_sha == github.sha
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Hugo (verified release archive)
+        run: |
+          curl --fail --location --retry 3 -o hugo.tar.gz "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_linux-amd64.tar.gz"
+          curl --fail --location --retry 3 -o checksums.txt "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_checksums.txt"
+          grep " hugo_${HUGO_VERSION}_linux-amd64.tar.gz$" checksums.txt | sed 's|hugo_.*_linux-amd64.tar.gz|hugo.tar.gz|' | sha256sum --check
+          mkdir -p "$RUNNER_TEMP/hugo"
+          tar -xzf hugo.tar.gz -C "$RUNNER_TEMP/hugo" hugo
+          echo "$RUNNER_TEMP/hugo" >> "$GITHUB_PATH"
+          rm hugo.tar.gz checksums.txt
+      - name: Test animation
+        run: node --test _tests/*.test.cjs
+      - name: Test translations and drafts
+        run: python3 _tests/translations.test.py
+      - name: Build production site
+        run: python3 scripts/build.py
+      - name: Validate site, translations, redirects, and feeds
+        run: python3 scripts/check-site.py
+      - name: Browser checks
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          npm run test:browser
+      - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
