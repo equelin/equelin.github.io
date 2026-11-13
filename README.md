@@ -100,6 +100,19 @@ Article and About pages load no animation assets or JavaScript.
 - `assets/css/mountain-banner.css`: framing and caption.
 - `assets/js/mountain-banner.js`: sun orbit, clouds, birds, and lake animation.
 
+### Dithered mountain experiment
+
+A separate preview lives at `/fr/experiments/mountains/` and
+`/en/experiments/mountains/`; the homepage is unchanged. It uses original
+procedural ridges, warm ink, ordered dithering, and drifting mist on a small
+Canvas 2D buffer, capped at 12 paints per second. No video or external assets.
+Reduced motion, offscreen/background suspension, pause controls, and a no-JS
+SVG fallback are included. Preview assets load only on these pages.
+
+Edit `assets/js/mountain-preview.js`, `assets/css/mountain-preview.css`, and
+`layouts/_default/mountain-preview.html` to experiment. The preview pages are
+marked `noindex` and are intentionally absent from the main navigation.
+
 ## Migration notes
 
 All nine original French posts retain their dates and content. They are marked

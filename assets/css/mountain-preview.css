@@ -1,0 +1,17 @@
+.mountain-study { margin-top: 2rem; }
+.mountain-study__landscape { position: relative; aspect-ratio: 780 / 300; }
+.mountain-study__landscape canvas, .mountain-study__landscape svg { display: block; width: 100%; height: 100%; }
+.mountain-study__landscape [hidden] { display: none; }
+.mountain-study__controls { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 44px; color: #766b60; font: 10px/1.5 ui-monospace, monospace; letter-spacing: .08em; }
+.mountain-study__controls button { min-height: 44px; min-width: 44px; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; padding: .5rem; }
+.mountain-study__controls button:hover { text-decoration: underline; }
+.study-heading { margin-top: 3rem; }
+.study-heading h1 { font-size: clamp(2rem, 5vw, 2.8rem); }
+.study-description { max-width: 650px; color: var(--muted); }
+@media (max-width: 540px) {
+  .mountain-study { margin-inline: -18px; margin-top: 1.5rem; }
+  .mountain-study__controls { padding-inline: 18px; font-size: 9px; }
+  .mountain-study__landscape { aspect-ratio: 780 / 380; }
+  .study-heading { margin-top: 2rem; }
+}
+@media print { .mountain-study__controls { display: none; } }

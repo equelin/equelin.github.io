@@ -1,0 +1,29 @@
+{{ define "extrahead" }}
+<meta name="robots" content="noindex, follow">
+{{ $css := resources.Get "css/mountain-preview.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+{{ $js := resources.Get "js/mountain-preview.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{ end }}
+{{ define "main" }}
+<section class="mountain-study" data-mountain-study>
+  <div class="mountain-study__landscape" aria-hidden="true">
+    <svg viewBox="0 0 780 300" fill="none" focusable="false" class="mountain-study__fallback">
+      <defs><linearGradient id="study-fade" x2="0" y2="1"><stop stop-color="#a49788" stop-opacity=".4"/><stop offset="1" stop-color="#fcfbf9" stop-opacity="0"/></linearGradient></defs>
+      <path d="M0 180 100 110 170 140 300 40 380 135 460 90 560 160 670 70 780 140V300H0Z" fill="url(#study-fade)"/>
+      <path d="M0 230 100 160 200 210 340 120 440 220 590 140 700 220 780 170V300H0Z" fill="url(#study-fade)"/>
+    </svg>
+    <canvas class="mountain-study__canvas" width="780" height="300" hidden></canvas>
+  </div>
+  <div class="mountain-study__controls">
+    <span>{{ if eq .Language.Lang "fr" }}ÉTUDE 01 / ENCRE & BRUME{{ else }}STUDY 01 / INK & MIST{{ end }}</span>
+    <button type="button" data-study-toggle data-pause="{{ i18n "pause" }}" data-resume="{{ i18n "resume" }}" aria-label="{{ i18n "pauseLabel" }}" data-pause-label="{{ i18n "pauseLabel" }}" data-resume-label="{{ i18n "resumeLabel" }}" hidden>{{ i18n "pause" }}</button>
+  </div>
+</section>
+<header class="study-heading">
+  <p class="eyebrow">{{ if eq .Language.Lang "fr" }}Un autre regard sur le paysage{{ else }}Another way to see the landscape{{ end }}</p>
+  <h1>{{ .Title }}</h1>
+</header>
+<div class="prose study-description">{{ .Content }}</div>
+<p><a class="text-link" href="{{ site.Home.RelPermalink }}">← {{ if eq .Language.Lang "fr" }}Comparer avec la page d’accueil{{ else }}Compare with the homepage{{ end }}</a></p>
+{{ end }}

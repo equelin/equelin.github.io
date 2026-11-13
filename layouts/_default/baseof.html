@@ -2,6 +2,7 @@
 <html lang="{{ site.Language.Locale }}">
 <head>
   {{ partial "head.html" . }}
+  {{ block "extrahead" . }}{{ end }}
 </head>
 <body>
   <a class="skip-link" href="#main">{{ i18n "skip" }}</a>
