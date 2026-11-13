@@ -12,7 +12,7 @@ permalink:           pretty
 title:               OK Computer
 tagline:             ''
 description:         'Ici on parle essentiellement automatisation, virtualisation et stockage mais pas que !'
-url:                 http://blog.okcomputer.io
+url:                 http://okcomputer.cloud
 baseurl:             /
 paginate:            5
 
