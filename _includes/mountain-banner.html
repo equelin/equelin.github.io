@@ -1,0 +1,30 @@
+<!-- Original pixel landscape. The sun is drawn before the ridges so it passes behind them. -->
+<div class="mountain-banner container" data-mountain-banner>
+  <svg class="mountain-banner__scene" viewBox="0 0 480 128" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" shape-rendering="crispEdges">
+    <defs>
+      <pattern id="mountain-grain" class="mountain-banner__grain" width="8" height="8" patternUnits="userSpaceOnUse">
+        <path d="M0 0h2v2H0zM4 4h2v2H4z" fill="currentColor" />
+      </pattern>
+    </defs>
+
+    <!-- A little pixel of light, also the static / reduced-motion composition. -->
+    <g class="mountain-banner__sun" data-mountain-sun transform="translate(240 28)">
+      <path d="M-4-10H4V-8H8V-4H10V4H8V8H4V10H-4V8H-8V4H-10V-4H-8V-8H-4Z" fill="currentColor" />
+    </g>
+
+    <!-- Distant, pale ridge. Every contour sits on the same two-unit pixel grid. -->
+    <path class="mountain-banner__distant" d="M0 104H16V96H32V88H48V80H64V72H80V64H92V56H104V48H112V40H124V48H136V56H148V64H160V72H172V80H188V88H204V96H224V104H244V96H260V88H276V80H288V72H300V64H312V56H324V48H332V40H340V32H348V24H356V32H364V40H376V48H388V56H400V64H412V72H428V80H444V88H460V96H480V128H0Z" fill="currentColor" />
+
+    <!-- Main peaks, with a broad open valley between them. -->
+    <path class="mountain-banner__ridge" d="M0 96H16V88H32V80H48V72H64V64H76V56H88V48H96V40H108V48H120V56H128V64H140V72H152V80H168V88H184V96H204V104H224V112H256V104H276V96H292V88H304V80H316V72H328V64H336V56H344V48H352V40H364V48H372V56H380V64H392V72H404V80H420V88H436V96H456V104H480V128H0Z" fill="currentColor" />
+
+    <!-- Snow is deliberately sparse: little stepped cuts, not smooth triangles. -->
+    <path class="mountain-banner__snow" d="M88 48H96V40H108V48H120V56H128V64H116V60H108V56H100V60H92V56H88ZM336 56H344V48H352V40H364V48H372V56H380V64H368V60H360V56H352V64H344V60H336Z" fill="currentColor" />
+
+    <!-- Quiet, stippled foothills soften the transition into the white page. -->
+    <path class="mountain-banner__foothills" d="M0 112H28V108H56V104H84V100H116V104H148V108H176V112H208V116H264V112H292V108H320V104H352V100H384V104H416V108H448V112H480V128H0Z" fill="currentColor" />
+    <path d="M0 112H28V108H56V104H84V100H116V104H148V108H176V112H208V116H264V112H292V108H320V104H352V100H384V104H416V108H448V112H480V124H0Z" fill="url(#mountain-grain)" />
+  </svg>
+  <button class="mountain-banner__toggle" type="button" data-mountain-toggle aria-label="Pause mountain animation" hidden>Pause</button>
+</div>
+<script src="{{ '/public/js/mountain-banner.js' | relative_url }}" defer></script>

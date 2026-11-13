@@ -1,0 +1,44 @@
+/* Original pixel landscape: no images, web fonts, or animation dependencies. */
+.mountain-banner {
+  position: relative;
+  padding-top: 2.5rem;
+  margin-bottom: .75rem;
+}
+
+.mountain-banner__scene {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.mountain-banner__sun { color: #626b73; }
+.mountain-banner__distant { color: #e3e7e9; }
+.mountain-banner__ridge { color: #6b747c; }
+.mountain-banner__snow { color: #f4f5f6; }
+.mountain-banner__foothills { color: #fff; }
+.mountain-banner__grain { color: #d9dfe2; }
+
+.mountain-banner__toggle {
+  display: block;
+  min-width: 44px;
+  min-height: 44px;
+  margin: 0 0 0 auto;
+  padding: .5rem 0 .5rem .75rem;
+  border: 0;
+  background: transparent;
+  color: #626b73;
+  font: 12px/1.5 system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.mountain-banner__toggle[hidden] { display: none; }
+.mountain-banner__toggle:hover { color: #313131; text-decoration: underline; }
+.mountain-banner__toggle:focus-visible { outline: 2px solid #268bd2; outline-offset: 2px; }
+
+/* The existing masthead remains unchanged on article and archive pages. */
+.mountain-banner ~ .masthead { margin-bottom: 2rem; }
+
+@media (max-width: 37.99em) {
+  .mountain-banner { padding-top: 3.5rem; }
+}
