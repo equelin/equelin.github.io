@@ -16,7 +16,7 @@
 }
 /* Render outside the reading column: true full bleed without 100vw overflow. */
 .mountain-study--panorama { margin: 1rem 0 0; }
-.mountain-study--panorama .mountain-study__landscape { width: 100%; aspect-ratio: 1560 / 300; min-height: 240px; overflow: hidden; }
+.mountain-study--panorama .mountain-study__landscape { width: 100%; aspect-ratio: 1040 / 300; min-height: 260px; overflow: hidden; }
 .mountain-study--panorama .mountain-study__landscape canvas,
 .mountain-study--panorama .mountain-study__landscape svg { position: absolute; inset: 0; object-fit: cover; }
 .mountain-study--panorama .mountain-study__controls { padding-inline: 0; }

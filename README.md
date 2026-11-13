@@ -111,8 +111,10 @@ SVG fallback are included. Preview assets load only on these pages.
 
 A second, full-width panorama lives at `/fr/experiments/mountains-wide/` and
 `/en/experiments/mountains-wide/`. It renders outside the reading column, crops
-closer on mobile, and uses stable irregular grain to avoid scaling moiré. Neither
-experiment replaces the homepage.
+closer on mobile, and retains the first study’s ordered dots with taller mountain
+silhouettes and lighter mist. Dithering is applied at the displayed resolution
+and rebuilt on resize to avoid stretching the dot pattern. Neither experiment
+replaces the homepage.
 
 Edit `assets/js/mountain-preview.js`, `assets/css/mountain-preview.css`,
 `layouts/partials/mountain-study.html`, and

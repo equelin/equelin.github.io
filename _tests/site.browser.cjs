@@ -100,6 +100,11 @@ const http = require('node:http');
       const landscape = await page.locator('.mountain-study__landscape').boundingBox();
       assert.equal(landscape.x, 0, 'Panorama starts at screen edge');
       assert.equal(landscape.width, width, 'Panorama spans the screen');
+      await page.waitForFunction(() => {
+        const canvas = document.querySelector('.mountain-study__canvas');
+        const bounds = canvas.parentElement.getBoundingClientRect();
+        return canvas.width === Math.round(bounds.width) && canvas.height === Math.round(bounds.height);
+      });
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     }
     const wideCanvas = page.locator('.mountain-study__canvas');

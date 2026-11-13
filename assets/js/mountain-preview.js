@@ -58,21 +58,43 @@
       if (sun < 23) shade = .008;
       else if (sun < 25) shade += .07;
       terrain[index] = shade * (panorama ? 1 : smooth(x / 45) * smooth((width - 1 - x) / 45));
-      if (panorama) {
-        // Stable, irregular grain avoids the moiré of a repeating dot grid when
-        // a full-width canvas is scaled or cropped to different screen sizes.
-        var noise = Math.imul(index ^ 0x9e3779b9, 0x85ebca6b);
-        noise = Math.imul(noise ^ (noise >>> 13), 0xc2b2ae35);
-        thresholds[index] = (noise ^ (noise >>> 16)) >>> 26;
-      } else {
-        thresholds[index] = bayer[(y % 8) * 8 + x % 8];
-      }
+      thresholds[index] = bayer[(y % 8) * 8 + x % 8];
       var offset = index * 4;
       pixels.data[offset] = 113;
       pixels.data[offset + 1] = 96;
       pixels.data[offset + 2] = 77;
     }
   }
+  // Dither the panorama at its displayed resolution, rather than stretching
+  // an already-dithered image. This preserves the original ordered dots without
+  // introducing scaling moiré. Terrain and atmosphere stay on a bounded grid.
+  var densities = panorama ? new Float32Array(width * height) : null;
+  var output = null, sourceMap = null, outputThresholds = null;
+  function sizeOutput() {
+    var bounds = study.querySelector('.mountain-study__landscape').getBoundingClientRect();
+    var outputWidth = Math.max(1, Math.round(bounds.width));
+    var outputHeight = Math.max(1, Math.round(bounds.height));
+    if (output && output.width === outputWidth && output.height === outputHeight) return;
+    canvas.width = outputWidth;
+    canvas.height = outputHeight;
+    output = context.createImageData(outputWidth, outputHeight);
+    sourceMap = new Uint32Array(outputWidth * outputHeight);
+    outputThresholds = new Uint8Array(sourceMap.length);
+    var scale = Math.max(outputWidth / width, outputHeight / height);
+    for (var y = 0; y < outputHeight; y++) {
+      var sourceY = Math.min(height - 1, Math.max(0, Math.floor((y - outputHeight / 2) / scale + height / 2)));
+      for (var x = 0; x < outputWidth; x++) {
+        var sourceX = Math.min(width - 1, Math.max(0, Math.floor((x - outputWidth / 2) / scale + width / 2)));
+        var i = y * outputWidth + x;
+        sourceMap[i] = sourceY * width + sourceX;
+        outputThresholds[i] = bayer[(y % 8) * 8 + x % 8];
+        output.data[i * 4] = 113;
+        output.data[i * 4 + 1] = 96;
+        output.data[i * 4 + 2] = 77;
+      }
+    }
+  }
+  if (panorama) sizeOutput();
   var elapsed = 0, previous = null, lastPaint = -Infinity, frame = null;
   var paused = false, visible = true;
   var fade = new Float32Array(height);
@@ -87,13 +109,19 @@
         var distance = (y - mistY) / 24;
         var distance2 = (y - mistY2) / 20;
         // Rational falloff avoids costly per-pixel exponential/noise functions.
-        var mist = .62 / (1 + distance * distance * distance * distance);
-        mist += .32 / (1 + distance2 * distance2 * distance2 * distance2);
+        var mist = (panorama ? .4 : .62) / (1 + distance * distance * distance * distance);
+        mist += (panorama ? .22 : .32) / (1 + distance2 * distance2 * distance2 * distance2);
         var density = terrain[index] * (1 - Math.min(.83, mist)) * fade[y];
-        pixels.data[index * 4 + 3] = density > (thresholds[index] + .5) / 64 ? 205 : 0;
+        if (panorama) densities[index] = density;
+        else pixels.data[index * 4 + 3] = density > (thresholds[index] + .5) / 64 ? 205 : 0;
       }
     }
-    context.putImageData(pixels, 0, 0);
+    if (panorama) {
+      for (var i = 0; i < sourceMap.length; i++) {
+        output.data[i * 4 + 3] = densities[sourceMap[i]] > (outputThresholds[i] + .5) / 64 ? 205 : 0;
+      }
+    }
+    context.putImageData(panorama ? output : pixels, 0, 0);
   }
   function active() { return !paused && !motion.matches && visible && !document.hidden; }
   function render(time) {
@@ -124,6 +152,11 @@
   else motion.addListener(sync);
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (entries) { visible = entries[0].isIntersecting; sync(); }).observe(study);
+  }
+  if (panorama) {
+    var resize = function () { sizeOutput(); draw(motion.matches ? 0 : elapsed); };
+    if ('ResizeObserver' in window) new ResizeObserver(resize).observe(study.querySelector('.mountain-study__landscape'));
+    else window.addEventListener('resize', resize);
   }
   sync();
   canvas.hidden = false;
