@@ -7,6 +7,7 @@
 <body>
   <a class="skip-link" href="#main">{{ i18n "skip" }}</a>
   {{ partial "header.html" . }}
+  {{ block "beforemain" . }}{{ end }}
   <main id="main" class="container" tabindex="-1">
     {{ block "main" . }}{{ end }}
   </main>

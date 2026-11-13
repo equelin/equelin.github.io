@@ -1,6 +1,6 @@
 /* Original procedural landscape. No video, textures, framework, or external assets.
  * A low-resolution Canvas 2D buffer keeps the experiment inexpensive; stable
- * ordered dithering gives moving mist a printed appearance without random flicker.
+ * dithering gives moving mist a printed appearance without random flicker.
  */
 (function () {
   'use strict';
@@ -13,6 +13,7 @@
   var toggle = study.querySelector('[data-study-toggle]');
   var motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   var width = canvas.width, height = canvas.height;
+  var panorama = study.hasAttribute('data-panorama');
   var pixels = context.createImageData(width, height);
   var terrain = new Float32Array(width * height);
   var thresholds = new Uint8Array(width * height);
@@ -53,11 +54,19 @@
         }
       }
       // A pale sun, almost absorbed into the paper.
-      var sun = Math.hypot(x - 552, y - 49);
+      var sun = Math.hypot(x - (panorama ? width * .71 : 552), y - 49);
       if (sun < 23) shade = .008;
       else if (sun < 25) shade += .07;
-      terrain[index] = shade * smooth(x / 45) * smooth((width - 1 - x) / 45);
-      thresholds[index] = bayer[(y % 8) * 8 + x % 8];
+      terrain[index] = shade * (panorama ? 1 : smooth(x / 45) * smooth((width - 1 - x) / 45));
+      if (panorama) {
+        // Stable, irregular grain avoids the moiré of a repeating dot grid when
+        // a full-width canvas is scaled or cropped to different screen sizes.
+        var noise = Math.imul(index ^ 0x9e3779b9, 0x85ebca6b);
+        noise = Math.imul(noise ^ (noise >>> 13), 0xc2b2ae35);
+        thresholds[index] = (noise ^ (noise >>> 16)) >>> 26;
+      } else {
+        thresholds[index] = bayer[(y % 8) * 8 + x % 8];
+      }
       var offset = index * 4;
       pixels.data[offset] = 113;
       pixels.data[offset + 1] = 96;

@@ -1,0 +1,16 @@
+<section class="mountain-study{{ if .Params.panorama }} mountain-study--panorama{{ end }}" data-mountain-study{{ if .Params.panorama }} data-panorama{{ end }}>
+  <div class="mountain-study__landscape" aria-hidden="true">
+    <svg viewBox="0 0 {{ if .Params.panorama }}1560{{ else }}780{{ end }} 300" preserveAspectRatio="xMidYMid slice" fill="none" focusable="false" class="mountain-study__fallback">
+      <defs><linearGradient id="study-fade" x2="0" y2="1"><stop stop-color="#a49788" stop-opacity=".4"/><stop offset="1" stop-color="#fcfbf9" stop-opacity="0"/></linearGradient></defs>
+      <g{{ if .Params.panorama }} transform="scale(2 1)"{{ end }}>
+      <path d="M0 180 100 110 170 140 300 40 380 135 460 90 560 160 670 70 780 140V300H0Z" fill="url(#study-fade)"/>
+      <path d="M0 230 100 160 200 210 340 120 440 220 590 140 700 220 780 170V300H0Z" fill="url(#study-fade)"/>
+      </g>
+    </svg>
+    <canvas class="mountain-study__canvas" width="{{ if .Params.panorama }}1560{{ else }}780{{ end }}" height="300" hidden></canvas>
+  </div>
+  <div class="mountain-study__controls{{ if .Params.panorama }} container{{ end }}">
+    <span>{{ if .Params.panorama }}{{ if eq .Language.Lang "fr" }}ÉTUDE 02 / GRAND HORIZON{{ else }}STUDY 02 / WIDE HORIZON{{ end }}{{ else }}{{ if eq .Language.Lang "fr" }}ÉTUDE 01 / ENCRE & BRUME{{ else }}STUDY 01 / INK & MIST{{ end }}{{ end }}</span>
+    <button type="button" data-study-toggle data-pause="{{ i18n "pause" }}" data-resume="{{ i18n "resume" }}" aria-label="{{ i18n "pauseLabel" }}" data-pause-label="{{ i18n "pauseLabel" }}" data-resume-label="{{ i18n "resumeLabel" }}" hidden>{{ i18n "pause" }}</button>
+  </div>
+</section>

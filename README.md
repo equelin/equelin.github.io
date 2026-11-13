@@ -109,7 +109,13 @@ Canvas 2D buffer, capped at 12 paints per second. No video or external assets.
 Reduced motion, offscreen/background suspension, pause controls, and a no-JS
 SVG fallback are included. Preview assets load only on these pages.
 
-Edit `assets/js/mountain-preview.js`, `assets/css/mountain-preview.css`, and
+A second, full-width panorama lives at `/fr/experiments/mountains-wide/` and
+`/en/experiments/mountains-wide/`. It renders outside the reading column, crops
+closer on mobile, and uses stable irregular grain to avoid scaling moiré. Neither
+experiment replaces the homepage.
+
+Edit `assets/js/mountain-preview.js`, `assets/css/mountain-preview.css`,
+`layouts/partials/mountain-study.html`, and
 `layouts/_default/mountain-preview.html` to experiment. The preview pages are
 marked `noindex` and are intentionally absent from the main navigation.
 
