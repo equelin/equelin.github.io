@@ -8,7 +8,7 @@ aliases:
 ---
 **Erwan Quélin · Nantes, France**
 
-[erwan.quelin@gmail.com](mailto:erwan.quelin@gmail.com) · [LinkedIn](https://www.linkedin.com/in/equelin/) · [GitHub](https://github.com/equelin)
+[LinkedIn](https://www.linkedin.com/in/equelin/) · [GitHub](https://github.com/equelin)
 
 Je conçois et développe des outils pour automatiser des infrastructures cloud à grande échelle. Mon parcours relie l’administration de systèmes, l’ingénierie logicielle et la fiabilité : comprendre les infrastructures, traduire leurs contraintes en code et rendre leur exploitation plus prévisible.
 
@@ -91,6 +91,6 @@ Je m’intéresse à l’intersection du SRE, de l’ingénierie logicielle et d
 
 « OK Computer » est un clin d’œil à l’album de Radiohead. Ce carnet rassemble mes notes techniques et mes retours de terrain ; mes autres publications sont aussi disponibles sur [myvmworld.fr](https://myvmworld.fr/).
 
-Pour échanger sur un article, un projet ou une opportunité professionnelle, [contactez-moi par e-mail](mailto:erwan.quelin@gmail.com).
+Pour échanger sur un article, un projet ou une opportunité professionnelle, [contactez-moi sur LinkedIn](https://www.linkedin.com/in/equelin/).
 
 Les opinions exprimées ici sont personnelles et ne représentent pas nécessairement celles de mon employeur.

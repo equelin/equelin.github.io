@@ -6,7 +6,7 @@ description: Automation engineer — Linux, cloud, and infrastructure reliabilit
 ---
 **Erwan Quélin · Nantes, France**
 
-[erwan.quelin@gmail.com](mailto:erwan.quelin@gmail.com) · [LinkedIn](https://www.linkedin.com/in/equelin/) · [GitHub](https://github.com/equelin)
+[LinkedIn](https://www.linkedin.com/in/equelin/) · [GitHub](https://github.com/equelin)
 
 I design and build tools to automate cloud infrastructure at scale. My background connects systems administration, software engineering, and reliability: understanding infrastructure, translating its constraints into code, and making operations more predictable.
 
@@ -89,6 +89,6 @@ I’m interested in the intersection of SRE, software engineering, and AI. I wan
 
 “OK Computer” is a nod to the Radiohead album. This notebook collects my technical notes and practical lessons; you can also find my other writing on [myvmworld.fr](https://myvmworld.fr/).
 
-To discuss an article, a project, or a professional opportunity, [get in touch by email](mailto:erwan.quelin@gmail.com).
+To discuss an article, a project, or a professional opportunity, [get in touch on LinkedIn](https://www.linkedin.com/in/equelin/).
 
 The views expressed here are my own and do not necessarily represent those of my employer.

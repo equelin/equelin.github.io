@@ -8,7 +8,7 @@ summaryLength = 32
 
 [params]
   author = 'Erwan Quélin'
-  email = 'erwan.quelin@gmail.com'
+  linkedin = 'https://www.linkedin.com/in/equelin/'
   github = 'https://github.com/equelin'
 
 [languages.fr]
