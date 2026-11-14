@@ -90,24 +90,29 @@ of pretending the existing French posts have been translated.
 
 ### Mountain banner
 
-The homepages retain the original pixel-art alpine sunset: layered snowy peaks,
-pines, a lake, drifting clouds, and birds. All movement uses one playback clock.
-It respects reduced motion, pauses offscreen/in background tabs, has localized
-Pause/Resume controls, and remains a complete illustration without JavaScript.
+Both homepages use the selected full-width sunset panorama: monochrome mountain
+silhouettes, ordered dots, drifting mist, and a warm orange sun crossing the sky
+on a 60-second loop. The introduction and latest articles stay in a narrow reading
+column below it. Sun and mist share one playback clock, with reduced-motion,
+offscreen/background suspension, localized Pause/Resume, and a no-JS SVG fallback.
 Article and About pages load no animation assets or JavaScript.
 
-- `layouts/partials/mountain-banner.html`: SVG composition and colors.
-- `assets/css/mountain-banner.css`: framing and caption.
-- `assets/js/mountain-banner.js`: sun orbit, clouds, birds, and lake animation.
+- `layouts/partials/mountain-study.html`: shared landscape markup and controls.
+- `layouts/partials/mountain-study-assets.html`: shared, fingerprinted CSS/JS loading.
+- `assets/css/mountain-preview.css`: framing, full-width layout, and caption.
+- `assets/js/mountain-preview.js`: terrain, dithering, mist, and sun orbit.
+- `content/_index.fr.md`, `content/_index.en.md`: enable the panorama and sunset sun.
+
+The earlier pixel-art banner source is retained but no longer loaded by the homepages.
 
 ### Dithered mountain experiment
 
 A separate preview lives at `/fr/experiments/mountains/` and
-`/en/experiments/mountains/`; the homepage is unchanged. It uses original
+`/en/experiments/mountains/`. It uses original
 procedural ridges, warm ink, ordered dithering, and drifting mist on a small
 Canvas 2D buffer, capped at 12 paints per second. No video or external assets.
 Reduced motion, offscreen/background suspension, pause controls, and a no-JS
-SVG fallback are included. Preview assets load only on these pages.
+SVG fallback are included. Landscape assets load only on homepages and previews.
 
 A second, full-width panorama lives at `/fr/experiments/mountains-wide/` and
 `/en/experiments/mountains-wide/`. It renders outside the reading column, crops
@@ -116,7 +121,7 @@ silhouettes and lighter mist. Dithering is applied at the displayed resolution
 and rebuilt on resize to avoid stretching the dot pattern. Neither experiment
 replaces the homepage.
 
-The third study keeps its original URLs, `/fr/experiments/alpine-morning/` and
+The third study, now also used on both homepages, keeps its original URLs, `/fr/experiments/alpine-morning/` and
 `/en/experiments/alpine-morning/`, but now uses the original monochrome landscape
 with colour only in a sunset-orange sun. The sun crosses the sky on a 60-second
 loop, passing behind the ridges. Sun and mist share the pause/visibility clock;

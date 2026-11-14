@@ -11,7 +11,7 @@
     <canvas class="mountain-study__canvas" width="{{ if .Params.panorama }}1040{{ else }}780{{ end }}" height="300" hidden></canvas>
   </div>
   <div class="mountain-study__controls{{ if .Params.panorama }} container{{ end }}">
-    <span>{{ if .Params.alpine }}{{ if eq .Language.Lang "fr" }}ÉTUDE 03 / SOLEIL COUCHANT{{ else }}STUDY 03 / SUNSET INK{{ end }}{{ else if .Params.panorama }}{{ if eq .Language.Lang "fr" }}ÉTUDE 02 / GRAND HORIZON{{ else }}STUDY 02 / WIDE HORIZON{{ end }}{{ else }}{{ if eq .Language.Lang "fr" }}ÉTUDE 01 / ENCRE & BRUME{{ else }}STUDY 01 / INK & MIST{{ end }}{{ end }}</span>
+    <span>{{ if .IsHome }}{{ i18n "quiet" }}{{ else if .Params.alpine }}{{ if eq .Language.Lang "fr" }}ÉTUDE 03 / SOLEIL COUCHANT{{ else }}STUDY 03 / SUNSET INK{{ end }}{{ else if .Params.panorama }}{{ if eq .Language.Lang "fr" }}ÉTUDE 02 / GRAND HORIZON{{ else }}STUDY 02 / WIDE HORIZON{{ end }}{{ else }}{{ if eq .Language.Lang "fr" }}ÉTUDE 01 / ENCRE & BRUME{{ else }}STUDY 01 / INK & MIST{{ end }}{{ end }}</span>
     <button type="button" data-study-toggle data-pause="{{ i18n "pause" }}" data-resume="{{ i18n "resume" }}" aria-label="{{ i18n "pauseLabel" }}" data-pause-label="{{ i18n "pauseLabel" }}" data-resume-label="{{ i18n "resumeLabel" }}" hidden>{{ i18n "pause" }}</button>
   </div>
 </section>

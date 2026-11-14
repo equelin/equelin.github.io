@@ -12,4 +12,4 @@ Le soleil suit une boucle d’une minute, comme dans la première bannière. La 
 
 [Comparer avec le panorama monochrome](../mountains-wide/) · [Revoir la première expérience](../mountains/)
 
-Cette version remplace l’étude de couleur à la même adresse. La page d’accueil et les aperçus monochromes précédents restent inchangés.
+Cette version est désormais celle de la page d’accueil. Les aperçus monochromes précédents restent disponibles pour comparaison.

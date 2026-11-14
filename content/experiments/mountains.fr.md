@@ -4,4 +4,4 @@ layout: mountain-preview
 translationKey: mountain-preview
 description: Un paysage de montagne expérimental, entre encre et brume.
 ---
-Une expérience à part : toujours des montagnes, mais une palette plus douce, un dessin en points et une brume qui traverse lentement les vallées. La page d’accueil reste inchangée.
+Une expérience à part : toujours des montagnes, mais une palette plus douce, un dessin en points et une brume qui traverse lentement les vallées. Cette première étude reste disponible pour comparaison avec le panorama au soleil couchant désormais présent en page d’accueil.

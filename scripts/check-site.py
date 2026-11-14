@@ -104,8 +104,12 @@ for name in ('fr/index.xml', 'en/index.xml', 'fr/articles/index.xml', 'en/articl
         errors.append(f'Invalid or missing XML {name}: {error}')
 check(len(ET.parse(OUT / 'fr/index.xml').findall('./channel/item')) >= 9, 'French feed lost posts')
 for lang in ('fr', 'en'):
-    check('data-mountain-banner' in (OUT / lang / 'index.html').read_text(), f'Missing {lang} banner')
-    check('data-mountain-banner' not in (OUT / lang / 'about/index.html').read_text(), f'Banner on {lang} About page')
+    homepage = (OUT / lang / 'index.html').read_text()
+    check('data-mountain-study' in homepage and 'data-panorama' in homepage and 'data-alpine' in homepage,
+          f'Missing {lang} sunset panorama')
+    check('data-mountain-banner' not in homepage, f'Old {lang} banner still displayed')
+    check('noindex' not in homepage, f'Homepage {lang} accidentally excluded from search')
+    check('data-mountain-study' not in (OUT / lang / 'about/index.html').read_text(), f'Banner on {lang} About page')
 check((OUT / 'CNAME').read_text().strip() == 'okcomputer.cloud', 'Custom domain changed')
 check((OUT / '.nojekyll').exists(), 'Missing .nojekyll')
 check((OUT / '404.html').is_file(), 'Missing GitHub Pages 404')

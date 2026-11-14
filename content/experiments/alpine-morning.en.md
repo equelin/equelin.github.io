@@ -12,4 +12,4 @@ The sun follows a one-minute loop, like the first mountain banner. Pause freezes
 
 [Compare with the monochrome panorama](../mountains-wide/) · [See the first experiment](../mountains/)
 
-This updates the colour study at the same preview address. The homepage and the earlier monochrome previews are unchanged.
+This is the design selected for the homepage. The earlier monochrome previews remain available for comparison.

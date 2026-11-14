@@ -32,8 +32,5 @@
 {{ $css := resources.Get "css/site.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
 {{ if .IsHome }}
-{{ $bannerCSS := resources.Get "css/mountain-banner.css" | minify | fingerprint }}
-<link rel="stylesheet" href="{{ $bannerCSS.RelPermalink }}" integrity="{{ $bannerCSS.Data.Integrity }}">
-{{ $bannerJS := resources.Get "js/mountain-banner.js" | minify | fingerprint }}
-<script src="{{ $bannerJS.RelPermalink }}" integrity="{{ $bannerJS.Data.Integrity }}" defer></script>
+{{ partial "mountain-study-assets.html" . }}
 {{ end }}
