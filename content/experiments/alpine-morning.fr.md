@@ -1,13 +1,15 @@
 ---
-title: Quelques couleurs du matin
+title: Une touche de soleil couchant
 layout: mountain-preview
 translationKey: alpine-morning
 panorama: true
 alpine: true
-description: Des sommets bleutés, des reliefs vert sauge et un soleil abricot. Une version plus lumineuse du panorama.
+description: Les montagnes monochromes d’origine, avec un soleil orangé qui se déplace derrière les sommets.
 ---
-Les mêmes silhouettes de montagne et la même brume en mouvement, avec une légère touche de couleur : du bleu doux au loin, du vert sauge au premier plan et un petit soleil abricot. Le dessin en points reste présent et le paysage se fond toujours dans le papier.
+Retour au paysage monochrome d’origine. Seul le soleil apporte de la couleur : un orange doux de fin de journée, qui traverse lentement le ciel et disparaît derrière les montagnes. Le dessin en points, les silhouettes nettes et la brume en mouvement restent présents.
+
+Le soleil suit une boucle d’une minute, comme dans la première bannière. La pause fige toute la scène ; la préférence de mouvement réduit garde le soleil immobile au-dessus des sommets.
 
 [Comparer avec le panorama monochrome](../mountains-wide/) · [Revoir la première expérience](../mountains/)
 
-Cette étude de couleur est indépendante. La page d’accueil et les aperçus précédents restent inchangés.
+Cette version remplace l’étude de couleur à la même adresse. La page d’accueil et les aperçus monochromes précédents restent inchangés.

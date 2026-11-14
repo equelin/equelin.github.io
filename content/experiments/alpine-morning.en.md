@@ -1,13 +1,15 @@
 ---
-title: A little morning colour
+title: A touch of sunset
 layout: mountain-preview
 translationKey: alpine-morning
 panorama: true
 alpine: true
-description: Blue peaks, sage-green foothills, and a soft apricot sun. A lighter take on the mountain panorama.
+description: The original monochrome mountains, with a warm sunset-orange sun moving behind the peaks.
 ---
-The same mountain silhouettes and drifting mist, with a light wash of colour: muted blue in the distance, sage green closer to us, and a small apricot sun. The fine dots remain, and the landscape still fades into the paper.
+Back to the original monochrome landscape. Only the sun carries colour: a soft sunset orange, slowly crossing the sky and disappearing behind the mountains. The fine dots, clear silhouettes, and drifting mist remain.
+
+The sun follows a one-minute loop, like the first mountain banner. Pause freezes the whole scene; reduced motion keeps the sun still above the peaks.
 
 [Compare with the monochrome panorama](../mountains-wide/) · [See the first experiment](../mountains/)
 
-This is a separate colour study. The homepage and the earlier previews are unchanged.
+This updates the colour study at the same preview address. The homepage and the earlier monochrome previews are unchanged.

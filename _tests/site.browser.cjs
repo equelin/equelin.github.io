@@ -132,17 +132,40 @@ const http = require('node:http');
       return [...inks].sort();
     });
     // Canvas premultiplied-alpha round trips can round individual channels by one.
-    for (const expected of [[221,155,104], [91,125,131], [96,126,102], [96,131,153]]) {
+    assert.equal(colors.length, 2, 'Only the original monochrome ink and the orange sun');
+    for (const expected of [[113,96,77], [202,116,75]]) {
       assert.ok(colors.some(color => color.split(',').map(Number).every((channel, i) => Math.abs(channel - expected[i]) <= 1)), `Missing landscape ink: ${expected}`);
     }
+    const sunPosition = () => alpineCanvas.evaluate(canvas => {
+      const data = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
+      let count = 0, x = 0, y = 0;
+      for (let i = 0; i < data.length; i += 4) {
+        if (data[i] > 150 && data[i + 1] < 150 && data[i + 2] < 110 && data[i + 3] > 0) {
+          count++; x += (i / 4) % canvas.width; y += Math.floor(i / 4 / canvas.width);
+        }
+      }
+      return { count, x: count ? x / count : null, y: count ? y / count : null };
+    });
+    const initialSun = await sunPosition();
+    assert.ok(initialSun.count > 0, 'Sun is visible above the peaks');
     const alpineBefore = await alpineCanvas.evaluate(canvas => canvas.toDataURL());
     await page.clock.runFor(4000);
     assert.notEqual(await alpineCanvas.evaluate(canvas => canvas.toDataURL()), alpineBefore);
+    assert.ok((await sunPosition()).x > initialSun.x + 30, 'The sun itself travels across the sky');
     await page.locator('[data-study-toggle]').click();
     const alpinePaused = await alpineCanvas.evaluate(canvas => canvas.toDataURL());
     await page.clock.runFor(2000);
     assert.equal(await alpineCanvas.evaluate(canvas => canvas.toDataURL()), alpinePaused);
     await page.screenshot({ path: path.join(__dirname, '../test-results/alpine-morning-desktop.png'), fullPage: true });
+    await page.locator('[data-study-toggle]').click();
+    await page.clock.runFor(100);
+    await page.clock.fastForward(25900);
+    assert.equal((await sunPosition()).count, 0, 'Loop wraps while the sun is hidden behind the ridges');
+    await page.clock.fastForward(30000);
+    const loopedSun = await sunPosition();
+    assert.ok(loopedSun.count > 0, 'Sun returns after a complete orbit');
+    assert.ok(Math.abs(loopedSun.x - initialSun.x) < 5, 'Orbit repeats without accumulating drift');
+    await page.locator('[data-study-toggle]').click();
     await page.setViewportSize({ width: 390, height: 844 });
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     await page.screenshot({ path: path.join(__dirname, '../test-results/alpine-morning-mobile.png'), fullPage: true });

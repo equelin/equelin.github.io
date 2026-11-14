@@ -116,11 +116,12 @@ silhouettes and lighter mist. Dithering is applied at the displayed resolution
 and rebuilt on resize to avoid stretching the dot pattern. Neither experiment
 replaces the homepage.
 
-A third study at `/fr/experiments/alpine-morning/` and
-`/en/experiments/alpine-morning/` adds muted blue and sage inks, a light wash under
-the dots, and an apricot sun. Its green link accents are scoped to the preview
-through `assets/css/alpine-morning.css`. The monochrome studies stay unchanged;
-all three have localized controls, reduced-motion support, and SVG fallbacks.
+The third study keeps its original URLs, `/fr/experiments/alpine-morning/` and
+`/en/experiments/alpine-morning/`, but now uses the original monochrome landscape
+with colour only in a sunset-orange sun. The sun crosses the sky on a 60-second
+loop, passing behind the ridges. Sun and mist share the pause/visibility clock;
+reduced motion places the sun still above the peaks. The earlier studies stay
+unchanged. All three have localized controls and SVG fallbacks.
 
 Edit `assets/js/mountain-preview.js`, `assets/css/mountain-preview.css`,
 `layouts/partials/mountain-study.html`, and

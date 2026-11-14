@@ -15,10 +15,10 @@
   var width = canvas.width, height = canvas.height;
   var panorama = study.hasAttribute('data-panorama');
   var alpine = study.hasAttribute('data-alpine');
-  // Distant blue, blue-sage middle ridge, sage foreground, and apricot sunlight.
-  var palette = [[96, 131, 153], [91, 125, 131], [96, 126, 102], [221, 155, 104]];
+  // The latest study keeps the original ink; only its moving sun is coloured.
+  var sunColor = [202, 116, 75];
   var monochrome = [113, 96, 77];
-  var inks = alpine ? new Uint8Array(width * height) : null;
+  var sunMask = alpine ? new Uint8Array(width * height) : null;
   var pixels = context.createImageData(width, height);
   var terrain = new Float32Array(width * height);
   var thresholds = new Uint8Array(width * height);
@@ -47,11 +47,9 @@
     for (var y = 0; y < height; y++) {
       var index = y * width + x;
       var shade = 0;
-      var ink = 0;
       for (var layer = 0; layer < ridges.length; layer++) {
         var depth = y - ridges[layer];
         if (depth >= 0) {
-          ink = layer;
           // Fluted rock faces: directional bands, broken by the contours.
           var face = Math.sin(x * .043 + y * .038 + layer * 2);
           var detail = Math.sin(x * .12 - y * .055) * .025;
@@ -60,16 +58,12 @@
           shade *= .55 + .45 * smooth(depth / (13 + 8 * Math.sin(x * .09)));
         }
       }
-      // A pale sun, almost absorbed into the paper.
-      var sun = Math.hypot(x - (panorama ? width * .71 : 552), y - 49);
-      if (sun < 23) {
-        shade = alpine ? .13 - .025 * (sun / 23) : .008;
-        if (alpine) ink = 3;
-      } else if (sun < 25) {
-        shade += .07;
-        if (alpine) ink = 3;
+      // Earlier studies retain their original, static monochrome sun.
+      if (!alpine) {
+        var sun = Math.hypot(x - (panorama ? width * .71 : 552), y - 49);
+        if (sun < 23) shade = .008;
+        else if (sun < 25) shade += .07;
       }
-      if (alpine) inks[index] = ink;
       terrain[index] = shade * (panorama ? 1 : smooth(x / 45) * smooth((width - 1 - x) / 45));
       thresholds[index] = bayer[(y % 8) * 8 + x % 8];
       var offset = index * 4;
@@ -101,10 +95,9 @@
         var i = y * outputWidth + x;
         sourceMap[i] = sourceY * width + sourceX;
         outputThresholds[i] = bayer[(y % 8) * 8 + x % 8];
-        var color = alpine ? palette[inks[sourceMap[i]]] : monochrome;
-        output.data[i * 4] = color[0];
-        output.data[i * 4 + 1] = color[1];
-        output.data[i * 4 + 2] = color[2];
+        output.data[i * 4] = monochrome[0];
+        output.data[i * 4 + 1] = monochrome[1];
+        output.data[i * 4 + 2] = monochrome[2];
       }
     }
   }
@@ -130,11 +123,36 @@
         else pixels.data[index * 4 + 3] = density > (thresholds[index] + .5) / 64 ? 205 : 0;
       }
     }
+    if (alpine) {
+      // One minute per crossing, starting at the high point. Both ends of the
+      // arc are hidden by the ridges, so wrapping never shows a teleport.
+      sunMask.fill(0);
+      var progress = ((time + 30000) % 60000) / 60000;
+      var sunX = width * (.12 + .76 * progress);
+      var sunY = 180 - 137 * Math.sin(Math.PI * progress);
+      for (var sy = Math.max(0, Math.floor(sunY - 23)); sy <= Math.min(height - 1, Math.ceil(sunY + 23)); sy++) {
+        for (var sx = Math.max(0, Math.floor(sunX - 23)); sx <= Math.min(width - 1, Math.ceil(sunX + 23)); sx++) {
+          var source = sy * width + sx;
+          var distanceSquared = (sx - sunX) * (sx - sunX) + (sy - sunY) * (sy - sunY);
+          // Colour only open sky: even the distant ridge occludes the sun.
+          if (distanceSquared <= 529 && terrain[source] === 0) {
+            sunMask[source] = 1;
+            densities[source] = .19 - .04 * distanceSquared / 529;
+          }
+        }
+      }
+    }
     if (panorama) {
       for (var i = 0; i < sourceMap.length; i++) {
         var source = sourceMap[i];
-        var wash = alpine ? (inks[source] === 3 ? 34 : Math.round(densities[source] * 20)) : 0;
-        output.data[i * 4 + 3] = densities[source] > (outputThresholds[i] + .5) / 64 ? 205 : wash;
+        var isSun = alpine && sunMask[source];
+        if (alpine) {
+          var color = isSun ? sunColor : monochrome;
+          output.data[i * 4] = color[0];
+          output.data[i * 4 + 1] = color[1];
+          output.data[i * 4 + 2] = color[2];
+        }
+        output.data[i * 4 + 3] = densities[source] > (outputThresholds[i] + .5) / 64 ? 205 : (isSun ? 40 : 0);
       }
     }
     context.putImageData(panorama ? output : pixels, 0, 0);
