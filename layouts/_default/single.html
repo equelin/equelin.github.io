@@ -1,5 +1,5 @@
 {{ define "main" }}
-<article class="single">
+<article class="single{{ if .Params.profile }} profile{{ end }}">
   <header class="page-heading">
     {{ if eq .Section "articles" }}
     {{ with site.GetPage "/articles" }}<a class="back-link" href="{{ .RelPermalink }}">← {{ i18n "back" }}</a>{{ end }}
@@ -11,6 +11,9 @@
     <p class="translation-note">{{ with .Translations }}{{ range . }}<a href="{{ .RelPermalink }}" hreflang="{{ .Language.Lang }}" lang="{{ .Language.Lang }}">{{ .Language.Label }} →</a>{{ end }}{{ else }}{{ i18n "untranslated" }}{{ end }}</p>
     {{ end }}
   </header>
+  {{ if .Params.profile }}
+  <p class="profile-print-note">{{ if eq .Language.Lang "fr" }}Version imprimable : utilisez la commande « Imprimer » de votre navigateur pour imprimer cette page ou l’enregistrer en PDF.{{ else }}Print-friendly version: use your browser’s Print command to print this page or save it as a PDF.{{ end }}</p>
+  {{ end }}
   {{ if .Params.legacy }}
   <aside class="archive-note"><strong>{{ i18n "legacy" }}</strong><p>{{ i18n "legacyNote" (.Date.Format "2006") }}</p></aside>
   {{ end }}

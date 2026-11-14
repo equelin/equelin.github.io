@@ -8,7 +8,7 @@ summaryLength = 32
 
 [params]
   author = 'Erwan Quélin'
-  email = 'equelin@gmail.com'
+  email = 'erwan.quelin@gmail.com'
   github = 'https://github.com/equelin'
 
 [languages.fr]

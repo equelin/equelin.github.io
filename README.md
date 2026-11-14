@@ -80,9 +80,11 @@ of pretending the existing French posts have been translated.
 
 ## Pages and design
 
-- `content/about.fr.md`, `content/about.en.md`: short bilingual profile and contact
-  links. Add experience, a CV, or a downloadable PDF here when ready. No invented
-  employment history or placeholder CV is published.
+- `content/about.fr.md`, `content/about.en.md`: bilingual About/CV pages, with
+  career dates, skills, publications, historical certifications, and contact links.
+  Browser printing produces a clean CV (Print → Save as PDF); there is no separate
+  PDF to keep in sync. The AI section describes a learning direction, not claimed
+  professional AI experience. Keep both translations updated when your role changes.
 - `i18n/fr.toml`, `i18n/en.toml`: homepage introduction and interface labels.
 - `assets/css/site.css`: spacing, typography, palette, responsive and print styles.
 - `layouts/`: small custom Hugo templates, with no external theme dependency.

@@ -67,6 +67,28 @@ const http = require('node:http');
     assert.ok(page.url().endsWith('/fr/about/'));
     assert.equal(await page.locator('[data-mountain-study]').count(), 0);
     assert.equal(await page.locator('script').count(), 0);
+    for (const language of ['fr', 'en']) {
+      await page.goto(base + `/${language}/about/`);
+      const profile = page.locator('.profile');
+      assert.equal(await profile.count(), 1);
+      const text = await profile.textContent();
+      for (const employer of ['OVHcloud', 'CHEOPS TECHNOLOGY', 'Iliane Informatique', 'SPIE Communications', 'Tical']) assert.ok(text.includes(employer));
+      for (const skill of ['Python', 'Go', 'Terraform', 'PCI DSS']) assert.ok(text.includes(skill));
+      assert.ok(text.includes(language === 'fr' ? '10 000' : '10,000'));
+      assert.equal(await profile.locator('a[href="https://www.linkedin.com/in/equelin/"]').count(), 1);
+      assert.ok(await profile.locator('a[href="mailto:erwan.quelin@gmail.com"]').count() >= 1);
+      assert.equal(await page.locator('a[href="mailto:equelin@gmail.com"]').count(), 0);
+      assert.equal(await page.locator('.site-footer a[href="mailto:erwan.quelin@gmail.com"]').count(), 1);
+      await page.emulateMedia({ media: 'print' });
+      assert.equal(await page.locator('.profile-print-note').isVisible(), false);
+      assert.equal(await page.locator('.site-header').isVisible(), false);
+      assert.equal(await profile.isVisible(), true);
+      const pdf = await page.pdf({ format: 'A4', margin: { top: '16mm', right: '16mm', bottom: '16mm', left: '16mm' }, path: path.join(__dirname, `../test-results/cv-${language}.pdf`) });
+      assert.ok(pdf.length > 1000);
+      await page.emulateMedia({ media: 'screen' });
+    }
+    await page.goto(base + '/fr/about/');
+    await page.screenshot({ path: path.join(__dirname, '../test-results/cv-desktop.png'), fullPage: true });
 
     for (const width of [320, 390, 768, 1280]) {
       await page.setViewportSize({ width, height: 900 });
@@ -76,6 +98,8 @@ const http = require('node:http');
       }
     }
     await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(base + '/fr/about/');
+    await page.screenshot({ path: path.join(__dirname, '../test-results/cv-mobile.png'), fullPage: true });
     await page.goto(base + '/fr/');
     await page.screenshot({ path: path.join(__dirname, '../test-results/home-mobile.png'), fullPage: true });
     await page.goto(base + '/fr/articles/centos-rhel-6-vmware-preparation-template/');

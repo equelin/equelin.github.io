@@ -85,6 +85,11 @@ pre code { font-size: inherit; }
 .site-footer a { color: var(--muted); text-decoration: none; }
 .site-footer a:hover { text-decoration: underline; }
 .not-found { min-height: 45vh; }
+.profile-print-note { margin: 0 0 1.8rem; color: var(--muted); font-size: .75rem; }
+.profile .prose h2 { padding-bottom: .6rem; border-bottom: 1px solid var(--line); }
+.profile .prose h3 { border-left: 2px solid #b58b6d; padding-left: .9rem; }
+.profile .prose h3 + p { padding-left: 1rem; color: var(--muted); font-size: .82rem; }
+.profile .prose h3 + p strong { font-weight: 500; }
 @media (max-width: 540px) {
   body { font-size: 16px; }
   .container { width: calc(100% - 36px); }
@@ -112,4 +117,14 @@ pre code { font-size: inherit; }
   pre { white-space: pre-wrap; overflow-wrap: anywhere; }
   h1, h2, h3 { break-after: avoid; }
   img { break-inside: avoid; }
+  .profile { font-size: 10pt; line-height: 1.45; }
+  .profile-print-note { display: none; }
+  .profile .page-heading { padding-bottom: .8rem; }
+  .profile .page-heading h1 { font-size: 22pt; }
+  .profile .intro-description { font-size: 11pt; }
+  .profile .prose h2 { font-size: 13pt; margin: 1.1rem 0 .6rem; }
+  .profile .prose h3 { font-size: 11pt; margin: 1rem 0 .4rem; }
+  .profile .prose h3 + p { break-after: avoid; font-size: 9pt; }
+  .profile .prose p, .profile .prose ul { margin-bottom: .7rem; }
+  .profile .prose li { break-inside: avoid; }
 }
